@@ -412,11 +412,19 @@
         }
 
         function handleDirectionChange(newDirection) {
-            if ((newDirection.x === 0 && direction.x === 0) || 
-                (newDirection.y === 0 && direction.y === 0)) {
-                direction = newDirection;
-                lastDirection = newDirection;
+            // Don't allow reversing direction directly
+            if (
+                (newDirection.x === 1 && direction.x === -1) ||
+                (newDirection.x === -1 && direction.x === 1) ||
+                (newDirection.y === 1 && direction.y === -1) ||
+                (newDirection.y === -1 && direction.y === 1)
+            ) {
+                return;
             }
+            
+            // Update direction
+            direction = newDirection;
+            lastDirection = newDirection;
         }
 
         // Keyboard controls
@@ -475,6 +483,9 @@
                     handleDirectionChange({ x: 0, y: -1 });
                 }
             }
+
+            touchStartX = touchEndX;
+            touchStartY = touchEndY;
         }, { passive: false });
 
         // Mobile button controls with improved handling
@@ -502,6 +513,13 @@
             generateFood();
             if (gameInterval) clearInterval(gameInterval);
             gameInterval = setInterval(gameLoop, GAME_SPEED);
+            
+            // Start moving right when game starts
+            setTimeout(() => {
+                if (direction.x === 0 && direction.y === 0) {
+                    handleDirectionChange({ x: 1, y: 0 });
+                }
+            }, GAME_SPEED);
         }
 
         startButton.addEventListener('click', startGame);
