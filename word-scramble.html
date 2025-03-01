@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Word Scramble - Learn Finance While Playing!</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--background-color);
+        }
+
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-item {
+            padding: 0.5rem 1rem;
+            background: var(--background-color);
+            border-radius: 8px;
+        }
+
+        .word-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            letter-spacing: 0.2rem;
+            color: var(--primary-color);
+        }
+
+        .input-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: 2px solid var(--background-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--secondary-color);
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .hint-button {
+            background-color: var(--accent-color);
+        }
+
+        .hint-button:hover {
+            background-color: #c0392b;
+        }
+
+        .definition {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .tip-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+
+        select {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--background-color);
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 1rem;
+            }
+
+            .word-display {
+                font-size: 2rem;
+            }
+
+            .input-section {
+                flex-direction: column;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="stats">
+                <div class="stat-item" id="score">Score: 0</div>
+                <div class="stat-item" id="timer">Time: 60s</div>
+                <div class="stat-item" id="streak">Streak: 0</div>
+            </div>
+            <select id="difficulty-select">
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+        </div>
+
+        <div class="word-display" id="scrambled-word">
+            PRESS START
+        </div>
+
+        <div class="input-section">
+            <input type="text" id="word-input" placeholder="Type your answer here..." autocomplete="off">
+            <button id="submit-button">Submit</button>
+            <button id="hint-button" class="hint-button">Hint</button>
+        </div>
+
+        <div class="definition" id="definition"></div>
+
+        <div class="tip-section">
+            <p id="financial-tip"></p>
+        </div>
+    </div>
+
+    <script type="module" src="js/word-scramble.js"></script>
+    <script>
+        // Start the game when the page loads
+        window.addEventListener('load', () => {
+            if (window.wordScrambleGame) {
+                window.wordScrambleGame.startGame();
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Snake Game - Learn Money Management | CapitalNotes</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play our Financial Snake Game and collect coins while learning money management concepts. A fun way to understand financial planning!">
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="snake game, financial education game, money management game, finance learning">
+    <link rel="canonical" href="https://muzammil567.github.io/CapitalNotes/snake-game.html">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Financial Snake Game - Learn Money Management | CapitalNotes">
+    <meta property="og:description" content="Play our Financial Snake Game and collect coins while learning money management concepts. A fun way to understand financial planning!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://muzammil567.github.io/CapitalNotes/snake-game.html">
+    <meta property="og:image" content="https://muzammil567.github.io/CapitalNotes/images/snake-game-preview.png">
+    
+    <!-- Theme and Icons -->
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Game",
+        "name": "Financial Snake Game",
+        "description": "A snake game that teaches financial concepts while collecting coins",
+        "genre": ["Educational", "Arcade", "Finance"],
+        "gameItem": [
+            {
+                "@type": "Thing",
+                "name": "Virtual Coins"
+            },
+            {
+                "@type": "Thing",
+                "name": "Financial Power-ups"
+            }
+        ],
+        "numberOfPlayers": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 1
+        },
+        "audience": {
+            "@type": "Audience",
+            "suggestedMinAge": "8"
+        }
+    }
+    </script>
+
+    <style>
+        /* Game-specific styles */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .game-area {
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        #game-canvas {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            margin: 2rem auto;
+        }
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .score-display {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #94a3b8;
+        }
+        
+        /* Ad Container Styles */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            min-height: 90px;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ad-container[data-loading="lazy"] {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        .ad-container[data-loading="lazy"].loaded {
+            opacity: 1;
+        }
+        .ad-container.horizontal {
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .ad-container.vertical {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        .ad-label {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .ad-fallback {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            color: #94a3b8;
+        }
+        .ad-container:empty + .ad-fallback {
+            display: block;
+        }
+        @media (max-width: 1024px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+            .ad-container.horizontal {
+                max-width: 320px;
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Pre-game Ad -->
+        <div class="ad-label" id="top-ad-label">Advertisement</div>
+        <div class="ad-container horizontal" 
+             id="top-ad"
+             role="complementary"
+             aria-labelledby="top-ad-label"
+             aria-label="Advertisement space">
+            <!-- AdSense code will go here -->
+        </div>
+        <div class="ad-fallback">
+            <p>Support CapitalNotes by disabling your ad blocker</p>
+        </div>
+
+        <div class="game-container">
+            <div class="game-area">
+                <h1>Financial Snake Game</h1>
+                <p>Guide the snake to collect coins and learn about money management!</p>
+                
+                <div class="score-display">
+                    <span>Score: </span>
+                    <span id="score">0</span>
+                </div>
+
+                <canvas id="game-canvas" width="600" height="400"></canvas>
+
+                <div class="game-controls">
+                    <button id="start-game" class="game-button">Start Game</button>
+                    <button id="pause-game" class="game-button" disabled>Pause</button>
+                    <button id="restart-game" class="game-button">Restart</button>
+                </div>
+
+                <!-- Mid-game Ad -->
+                <div class="ad-label" id="mid-game-ad-label">Advertisement</div>
+                <div class="ad-container rectangle" 
+                     id="mid-game-ad" 
+                     data-loading="lazy"
+                     role="complementary"
+                     aria-labelledby="mid-game-ad-label"
+                     aria-label="Advertisement space">
+                    <!-- AdSense code will go here -->
+                </div>
+                <div class="ad-fallback">
+                    <p>Support CapitalNotes by disabling your ad blocker</p>
+                </div>
+            </div>
+
+            <div class="game-sidebar">
+                <div class="game-info">
+                    <h2>How to Play</h2>
+                    <ul>
+                        <li>Use arrow keys to control the snake</li>
+                        <li>Collect coins to increase your score</li>
+                        <li>Avoid hitting walls and yourself</li>
+                        <li>Special coins give financial tips!</li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Ad -->
+                <div class="ad-label" id="sidebar-ad-label">Advertisement</div>
+                <div class="ad-container vertical" 
+                     id="sidebar-ad" 
+                     data-loading="lazy"
+                     role="complementary"
+                     aria-labelledby="sidebar-ad-label"
+                     aria-label="Advertisement space">
+                    <!-- AdSense code will go here -->
+                </div>
+                <div class="ad-fallback">
+                    <p>Support CapitalNotes by disabling your ad blocker</p>
+                </div>
+
+                <!-- Financial Tips -->
+                <div class="tips-section">
+                    <h3>Financial Tips</h3>
+                    <div id="current-tip">Collect golden coins for bonus financial wisdom!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post-game Ad -->
+        <div class="ad-label" id="bottom-ad-label">Advertisement</div>
+        <div class="ad-container horizontal" 
+             id="bottom-ad" 
+             data-loading="lazy"
+             role="complementary"
+             aria-labelledby="bottom-ad-label"
+             aria-label="Advertisement space">
+            <!-- AdSense code will go here -->
+        </div>
+        <div class="ad-fallback">
+            <p>Support CapitalNotes by disabling your ad blocker</p>
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="subscribe.html" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    CapitalNotes
+                </a>
+                <p>Your trusted platform for learning financial concepts through interactive and engaging games.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Featured Games</h4>
+                <ul>
+                    <li><a href="memory-match.html">Memory Match</a></li>
+                    <li><a href="snake-game.html">Financial Snake</a></li>
+                    <li><a href="math-quiz.html">Money Math</a></li>
+                    <li><a href="word-scramble.html">Finance Terms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Help & Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-content container">
+            <p>&copy; 2024 CapitalNotes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script src="snake-game.js" defer></script>
+    <script>
+        // Lazy Loading for Ads
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyAds = document.querySelectorAll('.ad-container[data-loading="lazy"]');
+            
+            const lazyLoadAd = function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const adObserver = new IntersectionObserver(lazyLoadAd, {
+                root: null,
+                threshold: 0.1
+            });
+
+            lazyAds.forEach(ad => {
+                adObserver.observe(ad);
+            });
+        });
+    </script>
+</body>
+</html> 

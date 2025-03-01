@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - CapitalNotes</title>
+    <meta name="description" content="Learn about how CapitalNotes uses cookies to enhance your gaming experience">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cookie Policy - CapitalNotes">
+    <meta property="og:description" content="Learn about how CapitalNotes uses cookies to enhance your gaming experience">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .policy-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .policy-content h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+        .policy-content h2 {
+            color: #444;
+            margin: 1.5rem 0 1rem;
+        }
+        .policy-content p, .policy-content li {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .policy-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .cookie-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+        .cookie-table th, .cookie-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .cookie-table th {
+            background: linear-gradient(135deg, #6b46c1, #805ad5);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .cookie-table tr:last-child td {
+            border-bottom: none;
+        }
+        .cookie-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .cookie-table tr:hover {
+            background-color: #f3f4f6;
+            transition: background-color 0.2s ease;
+        }
+        .cookie-table td {
+            color: #4a5568;
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        .cookie-table td:first-child {
+            font-weight: 500;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section container">
+            <h1>Cookie Policy</h1>
+            <p>Learn about how we use cookies to enhance your experience</p>
+        </section>
+
+        <section class="privacy-content container">
+            <h2>1. What Are Cookies</h2>
+            <p>Cookies are small text files that are placed on your computer or mobile device when you visit our website. They help us make the site work better for you.</p>
+
+            <h2>2. How We Use Cookies</h2>
+            <p>We use cookies for the following purposes:</p>
+            <ul>
+                <li>Essential cookies: Required for the website to function properly</li>
+                <li>Preference cookies: Remember your settings and preferences</li>
+                <li>Analytics cookies: Help us understand how visitors use our site</li>
+                <li>Game progress cookies: Save your game progress and scores</li>
+            </ul>
+
+            <h2>3. Types of Cookies We Use</h2>
+            <table class="cookie-table" aria-label="Types of cookies used on CapitalNotes">
+                <thead>
+                    <tr>
+                        <th>Cookie Type</th>
+                        <th>Purpose</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Session Cookies</td>
+                        <td>Temporary cookies that expire when you close your browser</td>
+                        <td>Session</td>
+                    </tr>
+                    <tr>
+                        <td>Persistent Cookies</td>
+                        <td>Remain on your device until deleted or expired</td>
+                        <td>Up to 12 months</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>4. Managing Cookies</h2>
+            <p>You can control and/or delete cookies through your browser settings. For more information about how to do this, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noopener noreferrer">aboutcookies.org</a>.</p>
+
+            <h2>5. Third-Party Cookies</h2>
+            <p>Some third-party services may place cookies on your device. We have no control over these cookies.</p>
+
+            <h2>6. Updates to This Policy</h2>
+            <p>We may update this Cookie Policy from time to time. Please check back regularly to stay informed of any updates.</p>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="/subscribe" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    CapitalNotes
+                </a>
+                <p>Your trusted platform for learning financial concepts through interactive and engaging games. Join our community of learners mastering money management skills!</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Featured Games</h4>
+                <ul>
+                    <li><a href="memory-match.html">Memory Match</a></li>
+                    <li><a href="snake-game.html">Financial Snake</a></li>
+                    <li><a href="math-quiz.html">Money Math</a></li>
+                    <li><a href="word-scramble.html">Finance Terms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="games.html">Game Library</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Help & Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-content container">
+            <p>&copy; 2024 CapitalNotes. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="sitemap.html">Sitemap</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html> 

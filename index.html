@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapitalNotes - Learn Finance Through Games</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play fun and exciting financial education games in your browser!">
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="financial games, money games, educational games, finance learning">
+    <link rel="canonical" href="https://muzammil567.github.io/CapitalNotes/">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="CapitalNotes - Learn Finance Through Games">
+    <meta property="og:description" content="Play fun and exciting financial education games in your browser!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://muzammil567.github.io/CapitalNotes/">
+    <meta property="og:image" content="https://muzammil567.github.io/CapitalNotes/images/og-image.png">
+    
+    <!-- Theme and Icons -->
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Structured Data Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "CapitalNotes",
+        "description": "Learn finance through interactive educational games",
+        "url": "https://muzammil567.github.io/CapitalNotes",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://muzammil567.github.io/CapitalNotes/games.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "CapitalNotes",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://muzammil567.github.io/CapitalNotes/images/logo.png"
+            }
+        },
+        "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": "4",
+            "lowPrice": "0",
+            "highPrice": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        /* Ad Container Styles */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            min-height: 90px;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ad-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 41, 59, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .ad-container:hover::before {
+            opacity: 1;
+        }
+        .ad-container.horizontal {
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .ad-container.vertical {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        .ad-container.rectangle {
+            max-width: 336px;
+            min-height: 280px;
+        }
+        @media (max-width: 768px) {
+            .ad-container.horizontal {
+                max-width: 320px;
+                min-height: 100px;
+            }
+        }
+        .ad-label {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        /* Ad Fallback */
+        .ad-fallback {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            color: #94a3b8;
+        }
+        .ad-container:empty + .ad-fallback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>Welcome to CapitalNotes Games</h1>
+                <p>Jump into exciting games and challenge yourself!</p>
+            </section>
+
+            <!-- Top Ad Section -->
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container horizontal" id="top-ad">
+                <!-- AdSense code will go here -->
+            </div>
+
+            <section class="games-grid">
+                <a href="memory-match.html" class="game-card">
+                    <div class="game-icon">🎯</div>
+                    <h3>Memory Match</h3>
+                    <p>Test your memory by matching pairs of cards</p>
+                </a>
+                <a href="snake-game.html" class="game-card">
+                    <div class="game-icon">🐍</div>
+                    <h3>Snake Game</h3>
+                    <p>Classic snake game with a modern twist</p>
+                </a>
+                <a href="tetris.html" class="game-card">
+                    <div class="game-icon">🧱</div>
+                    <h3>Tetris</h3>
+                    <p>Arrange falling blocks to clear lines</p>
+                </a>
+            </section>
+
+            <!-- Middle Ad Section -->
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container rectangle" id="middle-ad">
+                <!-- AdSense code will go here -->
+            </div>
+
+            <section class="features">
+                <h2>Why Choose CapitalNotes?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-gamepad"></i>
+                        <h3>Fun Learning</h3>
+                        <p>Learn financial concepts through engaging gameplay</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Educational</h3>
+                        <p>Improve your financial knowledge while playing</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Friendly</h3>
+                        <p>Play on any device, anytime, anywhere</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Ad Section -->
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container horizontal" id="bottom-ad">
+                <!-- AdSense code will go here -->
+            </div>
+
+            <section class="newsletter-section">
+                <div class="newsletter-container">
+                    <h2>Stay Updated</h2>
+                    <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                    <form class="newsletter-form" action="subscribe.html" method="POST" onsubmit="return validateForm(event)">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                        <input 
+                            type="email" 
+                            name="email"
+                            class="newsletter-input" 
+                            placeholder="Enter your email address" 
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            title="Please enter a valid email address"
+                            required
+                        >
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Sidebar Ad Section -->
+    <aside class="sidebar-ads">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-container vertical" id="sidebar-ad">
+            <!-- AdSense code will go here -->
+        </div>
+    </aside>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    CapitalNotes
+                </a>
+                <p>Your trusted platform for learning financial concepts through interactive and engaging games. Join our community of learners mastering money management skills!</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Featured Games</h4>
+                <ul>
+                    <li><a href="memory-match.html">Memory Match</a></li>
+                    <li><a href="snake-game.html">Financial Snake</a></li>
+                    <li><a href="math-quiz.html">Money Math</a></li>
+                    <li><a href="word-scramble.html">Finance Terms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="games.html">Game Library</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Help & Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-content container">
+            <p>&copy; 2024 CapitalNotes. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="sitemap.html">Sitemap</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html> 

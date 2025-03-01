@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - CapitalNotes</title>
+    <meta name="description" content="Frequently Asked Questions about CapitalNotes games and platform">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="FAQ - CapitalNotes">
+    <meta property="og:description" content="Frequently Asked Questions about CapitalNotes games and platform">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html" class="active">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about CapitalNotes games and platform</p>
+        </section>
+
+        <div class="container">
+            <section class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question" role="heading" aria-level="2">How do I play the games?</div>
+                    <div class="faq-answer">Simply click on any game from our collection and start playing directly in your browser. No downloads or installations required!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" role="heading" aria-level="2">Are the games free to play?</div>
+                    <div class="faq-answer">Yes, all our games are completely free to play.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" role="heading" aria-level="2">Do I need to create an account?</div>
+                    <div class="faq-answer">No account is required to play our games. Just visit and start playing!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" role="heading" aria-level="2">Are the games suitable for children?</div>
+                    <div class="faq-answer">Yes, our games are family-friendly and suitable for all ages.</div>
+                </div>
+            </section>
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="/subscribe" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    CapitalNotes
+                </a>
+                <p>Your trusted platform for learning financial concepts through interactive and engaging games. Join our community of learners mastering money management skills!</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Featured Games</h4>
+                <ul>
+                    <li><a href="memory-match.html">Memory Match</a></li>
+                    <li><a href="snake-game.html">Financial Snake</a></li>
+                    <li><a href="math-quiz.html">Money Math</a></li>
+                    <li><a href="word-scramble.html">Finance Terms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="games.html">Game Library</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Help & Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-content container">
+            <p>&copy; 2024 CapitalNotes. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="sitemap.html">Sitemap</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html> 

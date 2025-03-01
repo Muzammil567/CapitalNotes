@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Library - CapitalNotes</title>
+    <meta name="description" content="Browse our collection of financial education games">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Games Library - CapitalNotes">
+    <meta property="og:description" content="Browse our collection of financial education games">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ad Container Styles */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            min-height: 90px;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ad-container.horizontal {
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .ad-container.vertical {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        .ad-container.rectangle {
+            max-width: 336px;
+            min-height: 280px;
+        }
+        @media (max-width: 768px) {
+            .ad-container.horizontal {
+                max-width: 320px;
+                min-height: 100px;
+            }
+        }
+        .ad-label {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .games-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .games-main {
+            flex: 1;
+        }
+        .games-sidebar {
+            width: 300px;
+        }
+        @media (max-width: 1024px) {
+            .games-container {
+                grid-template-columns: 1fr;
+            }
+            .games-sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html" class="active">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section container">
+            <h1>Games Library</h1>
+            <p>Explore our collection of educational financial games</p>
+        </section>
+
+        <!-- Top Ad Section -->
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-container horizontal" id="top-ad">
+            <!-- AdSense code will go here -->
+        </div>
+
+        <div class="games-container">
+            <div class="games-main">
+                <section class="featured-games">
+                    <h2>Featured Games</h2>
+                    <div class="games-grid">
+                        <a href="memory-match.html" class="game-card">
+                            <div class="game-icon">🎯</div>
+                            <h3>Memory Match</h3>
+                            <p>Test your memory by matching pairs of cards</p>
+                        </a>
+                        <a href="snake-game.html" class="game-card">
+                            <div class="game-icon">🐍</div>
+                            <h3>Financial Snake</h3>
+                            <p>Classic snake game with a financial twist</p>
+                        </a>
+                    </div>
+
+                    <!-- Middle Ad Section -->
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-container rectangle" id="middle-ad">
+                        <!-- AdSense code will go here -->
+                    </div>
+
+                    <h2>New Games</h2>
+                    <div class="games-grid">
+                        <a href="math-quiz.html" class="game-card">
+                            <div class="game-icon">🔢</div>
+                            <h3>Money Math</h3>
+                            <p>Test your financial calculation skills</p>
+                        </a>
+                        <a href="word-scramble.html" class="game-card">
+                            <div class="game-icon">📝</div>
+                            <h3>Finance Terms</h3>
+                            <p>Learn financial vocabulary through word games</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="games-sidebar">
+                <!-- Sidebar Ad Section -->
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-container vertical" id="sidebar-ad">
+                    <!-- AdSense code will go here -->
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom Ad Section -->
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-container horizontal" id="bottom-ad">
+            <!-- AdSense code will go here -->
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="subscribe.html" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <!-- ... existing footer code ... -->
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html> 

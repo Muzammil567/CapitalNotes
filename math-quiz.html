@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Math Quiz - Learn Money Math!</title>
+    <meta name="description" content="Test your financial calculation skills with our interactive math quiz">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Money Math Quiz - CapitalNotes">
+    <meta property="og:description" content="Test your financial calculation skills with our interactive math quiz">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Structured Data Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Game",
+        "name": "Money Math Quiz",
+        "description": "An educational quiz game that tests financial calculation skills",
+        "genre": ["Educational", "Quiz"],
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "author": {
+            "@type": "Organization",
+            "name": "CapitalNotes"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "educationalAlignment": {
+            "@type": "AlignmentObject",
+            "alignmentType": "teaches",
+            "educationalFramework": "Financial Literacy",
+            "targetName": "Financial Calculations"
+        }
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--background-color);
+        }
+
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-item {
+            padding: 0.5rem 1rem;
+            background: var(--background-color);
+            border-radius: 8px;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .option-button {
+            padding: 1rem;
+            font-size: 1.2rem;
+            background-color: var(--background-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .option-button.correct {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .option-button.incorrect {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .explanation {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .tip-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+
+        select {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--background-color);
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .achievement-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 1rem;
+            }
+
+            .question {
+                font-size: 1.2rem;
+            }
+
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .option-button {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Pre-game Ad -->
+        <div class="ad-label" id="top-ad-label">Advertisement</div>
+        <div class="ad-container horizontal" 
+             id="top-ad"
+             role="complementary"
+             aria-labelledby="top-ad-label"
+             aria-label="Advertisement space">
+            <!-- AdSense code will go here -->
+        </div>
+        <div class="ad-fallback">
+            <p>Support CapitalNotes by disabling your ad blocker</p>
+        </div>
+
+        <div class="game-container">
+            <div class="game-header">
+                <div class="stats">
+                    <div class="stat-item" id="score">Score: 0</div>
+                    <div class="stat-item" id="timer">Time: 120s</div>
+                    <div class="stat-item" id="streak">Streak: 0</div>
+                </div>
+                <select id="difficulty-select">
+                    <option value="basic">Basic</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+
+            <div class="question" id="question">
+                Get ready for some financial math!
+            </div>
+
+            <div class="options-container" id="options-container">
+                <!-- Options will be dynamically added here -->
+            </div>
+
+            <div class="explanation" id="explanation"></div>
+
+            <div class="tip-section">
+                <p id="financial-tip"></p>
+            </div>
+        </div>
+
+        <!-- Mid-game Ad -->
+        <div class="ad-label" id="mid-game-ad-label">Advertisement</div>
+        <div class="ad-container rectangle" 
+             id="mid-game-ad" 
+             data-loading="lazy"
+             role="complementary"
+             aria-labelledby="mid-game-ad-label"
+             aria-label="Advertisement space">
+            <!-- AdSense code will go here -->
+        </div>
+        <div class="ad-fallback">
+            <p>Support CapitalNotes by disabling your ad blocker</p>
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="/subscribe" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <!-- ... existing footer code ... -->
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script type="module" src="js/math-quiz.js"></script>
+    <script>
+        // Lazy Loading for Ads
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyAds = document.querySelectorAll('.ad-container[data-loading="lazy"]');
+            
+            const lazyLoadAd = function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const adObserver = new IntersectionObserver(lazyLoadAd, {
+                root: null,
+                threshold: 0.1
+            });
+
+            lazyAds.forEach(ad => {
+                adObserver.observe(ad);
+            });
+        });
+
+        // Start the game when the page loads
+        window.addEventListener('load', () => {
+            if (window.mathQuizGame) {
+                window.mathQuizGame.startGame();
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,66 @@
+# CapitalNotes robots.txt
+User-agent: *
+Allow: /
+Allow: /games/
+Allow: /images/
+Allow: /styles/
+Allow: /scripts/
+
+# Allow crawling of all content
+Allow: /*.html$
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.ico$
+
+# Sitemaps
+Sitemap: https://muzammil567.github.io/CapitalNotes/sitemap.xml
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
+
+# Disallow potentially sensitive directories
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /includes/
+
+# Allow important pages with higher priority
+Allow: /index.html
+Allow: /games.html
+Allow: /about.html
+Allow: /faq.html
+Allow: /contact.html
+
+# Allow legal pages
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /cookie-policy.html
+Allow: /disclaimer.html
+
+# Allow game pages
+Allow: /memory-match.html
+Allow: /snake-game.html
+Allow: /math-quiz.html
+Allow: /word-scramble.html
+
+# Allow AdSense crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow Google Mobile AdSense
+User-agent: Mediapartners-Google-Mobile
+Allow: /
+
+# Prevent crawling of administrative and system files
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*.xml$
+Allow: /sitemap.xml
+Allow: /ads.txt 

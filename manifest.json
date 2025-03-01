@@ -1,0 +1,36 @@
+{
+    "name": "CapitalNotes",
+    "short_name": "CapitalNotes",
+    "description": "Learn finance through interactive educational games",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1e293b",
+    "theme_color": "#6b46c1",
+    "icons": [
+        {
+            "src": "/images/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["education", "games", "finance"],
+    "screenshots": [
+        {
+            "src": "/images/screenshot-1.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "label": "Homepage of CapitalNotes"
+        },
+        {
+            "src": "/images/screenshot-2.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "label": "Playing Memory Match game"
+        }
+    ]
+} 

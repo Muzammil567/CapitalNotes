@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - CapitalNotes</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="The page you're looking for cannot be found. Explore our other financial education games instead!">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Theme and Icons -->
+    <meta name="theme-color" content="#6b46c1">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .error-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 12px;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: bold;
+            color: #6b46c1;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #94a3b8;
+        }
+        .suggested-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .suggested-link {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .suggested-link:hover {
+            background: rgba(107, 70, 193, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-line"></i>
+                CapitalNotes
+            </a>
+            <div class="nav-links">
+                <a href="games.html">Games</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <h1 class="error-message">Oops! Page Not Found</h1>
+            <p>The page you're looking for might have been moved or doesn't exist.</p>
+            
+            <div class="suggested-links">
+                <a href="index.html" class="suggested-link">
+                    <i class="fas fa-home"></i>
+                    <h3>Home</h3>
+                    <p>Return to homepage</p>
+                </a>
+                <a href="games.html" class="suggested-link">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Games</h3>
+                    <p>Browse all games</p>
+                </a>
+                <a href="faq.html" class="suggested-link">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>FAQ</h3>
+                    <p>Get help</p>
+                </a>
+            </div>
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form" action="subscribe.html" method="POST" onsubmit="return validateForm(event)">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                    <input 
+                        type="email" 
+                        name="email"
+                        class="newsletter-input" 
+                        placeholder="Enter your email address" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    CapitalNotes
+                </a>
+                <p>Your trusted platform for learning financial concepts through interactive and engaging games.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Featured Games</h4>
+                <ul>
+                    <li><a href="memory-match.html">Memory Match</a></li>
+                    <li><a href="snake-game.html">Financial Snake</a></li>
+                    <li><a href="math-quiz.html">Money Math</a></li>
+                    <li><a href="word-scramble.html">Finance Terms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Help & Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-content container">
+            <p>&copy; 2024 CapitalNotes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html> 
