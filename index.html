@@ -4,128 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CapitalNotes - Learn Finance Through Games</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Play fun and exciting financial education games in your browser!">
-    <meta name="robots" content="index, follow">
-    <meta name="keywords" content="financial games, money games, educational games, finance learning">
-    <link rel="canonical" href="https://muzammil567.github.io/CapitalNotes/">
-    
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="CapitalNotes - Learn Finance Through Games">
-    <meta property="og:description" content="Play fun and exciting financial education games in your browser!">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://muzammil567.github.io/CapitalNotes/">
-    <meta property="og:image" content="https://muzammil567.github.io/CapitalNotes/images/og-image.png">
-    
-    <!-- Theme and Icons -->
-    <meta name="theme-color" content="#6b46c1">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    
-    <!-- Stylesheets -->
+    <meta name="description" content="Play fun and exciting games in your browser!">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- Structured Data Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "CapitalNotes",
-        "description": "Learn finance through interactive educational games",
-        "url": "https://muzammil567.github.io/CapitalNotes",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://muzammil567.github.io/CapitalNotes/games.html?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "CapitalNotes",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://muzammil567.github.io/CapitalNotes/images/logo.png"
-            }
-        },
-        "offers": {
-            "@type": "AggregateOffer",
-            "offerCount": "4",
-            "lowPrice": "0",
-            "highPrice": "0",
-            "priceCurrency": "USD"
-        }
-    }
-    </script>
-
-    <style>
-        /* Ad Container Styles */
-        .ad-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 2rem auto;
-            min-height: 90px;
-            background: rgba(30, 41, 59, 0.3);
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-        .ad-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(30, 41, 59, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .ad-container:hover::before {
-            opacity: 1;
-        }
-        .ad-container.horizontal {
-            max-width: 728px;
-            min-height: 90px;
-        }
-        .ad-container.vertical {
-            max-width: 300px;
-            min-height: 250px;
-        }
-        .ad-container.rectangle {
-            max-width: 336px;
-            min-height: 280px;
-        }
-        @media (max-width: 768px) {
-            .ad-container.horizontal {
-                max-width: 320px;
-                min-height: 100px;
-            }
-        }
-        .ad-label {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-        /* Ad Fallback */
-        .ad-fallback {
-            display: none;
-            text-align: center;
-            padding: 1rem;
-            color: #94a3b8;
-        }
-        .ad-container:empty + .ad-fallback {
-            display: block;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.12.16/dist/framer-motion.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -148,92 +30,95 @@
                 <p>Jump into exciting games and challenge yourself!</p>
             </section>
 
-            <!-- Top Ad Section -->
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-container horizontal" id="top-ad">
-                <!-- AdSense code will go here -->
-            </div>
-
             <section class="games-grid">
-                <a href="memory-match.html" class="game-card">
-                    <div class="game-icon">🎯</div>
-                    <h3>Memory Match</h3>
-                    <p>Test your memory by matching pairs of cards</p>
-                </a>
-                <a href="snake-game.html" class="game-card">
-                    <div class="game-icon">🐍</div>
-                    <h3>Snake Game</h3>
-                    <p>Classic snake game with a modern twist</p>
-                </a>
-                <a href="tetris.html" class="game-card">
-                    <div class="game-icon">🧱</div>
-                    <h3>Tetris</h3>
-                    <p>Arrange falling blocks to clear lines</p>
-                </a>
-            </section>
-
-            <!-- Middle Ad Section -->
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-container rectangle" id="middle-ad">
-                <!-- AdSense code will go here -->
-            </div>
-
-            <section class="features">
-                <h2>Why Choose CapitalNotes?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Fun Learning</h3>
-                        <p>Learn financial concepts through engaging gameplay</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-brain"></i>
-                        <h3>Educational</h3>
-                        <p>Improve your financial knowledge while playing</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>Mobile Friendly</h3>
-                        <p>Play on any device, anytime, anywhere</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Bottom Ad Section -->
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-container horizontal" id="bottom-ad">
-                <!-- AdSense code will go here -->
-            </div>
-
-            <section class="newsletter-section">
-                <div class="newsletter-container">
-                    <h2>Stay Updated</h2>
-                    <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
-                    <form class="newsletter-form" action="subscribe.html" method="POST" onsubmit="return validateForm(event)">
-                        <input type="hidden" name="csrf_token" value="{{csrf_token}}">
-                        <input 
-                            type="email" 
-                            name="email"
-                            class="newsletter-input" 
-                            placeholder="Enter your email address" 
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                            title="Please enter a valid email address"
-                            required
-                        >
-                        <button type="submit" class="newsletter-button">Subscribe</button>
-                    </form>
-                </div>
-            </section>
+    <a href="memory-match.html" class="game-card">
+        <div class="game-icon">🎯</div>
+        <h3>Memory Match</h3>
+        <p>Test your memory by matching pairs of cards</p>
+    </a>
+    <a href="snake-game.html" class="game-card">
+        <div class="game-icon">🐍</div>
+        <h3>Snake Game</h3>
+        <p>Classic snake game with a modern twist</p>
+    </a>
+    <a href="tetris.html" class="game-card">
+        <div class="game-icon">🧱</div>
+        <h3>Tetris</h3>
+        <p>Arrange falling blocks to clear lines</p>
+    </a>
+   
+    <a href="whack-a-mole.html" class="game-card">
+        <div class="game-icon">🔨</div>
+        <h3>Whack-a-Mole</h3>
+        <p>Test your reflexes by whacking moles</p>
+    </a>
+    <a href="tic-tac-toe.html" class="game-card">
+        <div class="game-icon">❌⭕</div>
+        <h3>Tic-Tac-Toe</h3>
+        <p>Classic game of X's and O's</p>
+    </a>
+    <a href="rock-paper-scissors.html" class="game-card">
+        <div class="game-icon">✊✋✌️</div>
+        <h3>Rock Paper Scissors</h3>
+        <p>Play against the computer in this classic game</p>
+    </a>
+    <a href="simon-says.html" class="game-card">
+        <div class="game-icon">🔴🟢🔵🟡</div>
+        <h3>Simon Says</h3>
+        <p>Test your memory by repeating color patterns</p>
+    </a>
+    <a href="hangman.html" class="game-card">
+        <div class="game-icon">🔤</div>
+        <h3>Hangman</h3>
+        <p>Guess the word before the man is hanged</p>
+    </a>
+    <a href="minesweeper.html" class="game-card">
+        <div class="game-icon">💣</div>
+        <h3>Minesweeper</h3>
+        <p>Clear the minefield without hitting any bombs</p>
+    </a>
+    <a href="math-quiz.html" class="game-card">
+       <div class="game-icon">🧮</div>
+       <h3>Math Quiz</h3>
+       <p>Test your math skills with quick calculations</p>
+   </a>
+   <a href="word-scramble.html" class="game-card">
+       <div class="game-icon">🔤</div>
+       <h3>Word Scramble</h3>
+       <p>Unscramble words to test your vocabulary</p>
+   </a>
+   <a href="pattern-recognition.html" class="game-card">
+       <div class="game-icon">🔢</div>
+       <h3>Pattern Recognition</h3>
+       <p>Identify the next number in the sequence</p>
+   </a>
+</section>
         </div>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2>Ready to Start Playing?</h2>
+                <p>Join thousands of players enjoying our collection of fun and challenging games. No downloads required - play instantly in your browser!</p>
+                <div class="cta-buttons">
+                    <a href="games.html" class="cta-button-primary">Browse All Games</a>
+                    <a href="about.html" class="cta-button-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for new game releases, updates, and gaming tips!</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
     </main>
-
-    <!-- Sidebar Ad Section -->
-    <aside class="sidebar-ads">
-        <div class="ad-label">Advertisement</div>
-        <div class="ad-container vertical" id="sidebar-ad">
-            <!-- AdSense code will go here -->
-        </div>
-    </aside>
 
     <footer class="footer">
         <div class="footer-container">
@@ -287,6 +172,7 @@
         </div>
     </footer>
 
-    <script src="main.js" defer></script>
+    <script src="main.js"></script>
 </body>
-</html> 
+</html>
+
