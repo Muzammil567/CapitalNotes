@@ -16,6 +16,22 @@
     --gradient-middle: #7c3aed;
     --gradient-end: #a78bfa;
     --header-bg: rgba(15, 23, 42, 0.9);
+    
+    /* Responsive spacing units */
+    --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --spacing-md: clamp(1rem, 2vw, 1.5rem);
+    --spacing-lg: clamp(1.5rem, 3vw, 2rem);
+    --spacing-xl: clamp(2rem, 4vw, 3rem);
+    
+    /* Responsive font sizes */
+    --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+    --font-sm: clamp(0.875rem, 2.5vw, 1rem);
+    --font-md: clamp(1rem, 3vw, 1.25rem);
+    --font-lg: clamp(1.25rem, 4vw, 1.75rem);
+    --font-xl: clamp(1.75rem, 5vw, 2.5rem);
+    --font-2xl: clamp(2rem, 6vw, 3rem);
+    --font-3xl: clamp(2.5rem, 7vw, 4rem);
 }
 
 body {
@@ -25,12 +41,13 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
+    font-size: var(--font-md);
 }
 
 .container {
-    max-width: 1200px;
+    width: min(95%, 1200px);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-sm);
 }
 
 header {
@@ -41,6 +58,7 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-sm) 0;
 }
 
 nav {
@@ -50,13 +68,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--spacing-md);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 1.5rem;
+    gap: var(--spacing-xs);
+    font-size: var(--font-lg);
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
@@ -77,7 +96,7 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: var(--spacing-md);
     align-items: center;
 }
 
@@ -96,7 +115,7 @@ nav {
 
 .hero {
     text-align: center;
-    padding: 6rem 0;
+    padding: var(--spacing-xl) var(--spacing-md);
     background: linear-gradient(to bottom, var(--background-color), var(--surface-color));
     position: relative;
     overflow: hidden;
@@ -122,9 +141,9 @@ nav {
 }
 
 .hero h1 {
-    font-size: 4rem;
+    font-size: var(--font-3xl);
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
     -webkit-background-clip: text;
     background-clip: text;
@@ -133,9 +152,9 @@ nav {
 }
 
 .hero p {
-    font-size: 1.5rem;
+    font-size: var(--font-lg);
     color: var(--text-muted);
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-lg);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -143,10 +162,10 @@ nav {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-md);
     margin: 4rem auto;
-    padding: 0 2rem;
     max-width: 1400px;
 }
 
@@ -155,7 +174,7 @@ nav {
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 1rem;
-    padding: 2rem;
+    padding: var(--spacing-lg);
     text-decoration: none;
     color: var(--text-color);
     transition: all 0.4s ease;
@@ -172,8 +191,8 @@ nav {
 }
 
 .game-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
+    font-size: var(--font-2xl);
+    margin-bottom: var(--spacing-md);
     color: var(--primary-color);
     transition: transform 0.3s ease;
 }
@@ -183,9 +202,9 @@ nav {
 }
 
 .game-card h3 {
-    font-size: 1.75rem;
+    font-size: var(--font-lg);
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     -webkit-background-clip: text;
     background-clip: text;
@@ -195,6 +214,7 @@ nav {
 .game-card p {
     color: var(--text-muted);
     line-height: 1.6;
+    font-size: var(--font-sm);
 }
 
 footer {
@@ -405,19 +425,20 @@ footer::before {
 
 .newsletter-form {
     display: flex;
-    gap: 1rem;
-    max-width: 500px;
-    margin: 0 auto;
+    gap: var(--spacing-sm);
+    max-width: 600px;
+    margin: var(--spacing-lg) auto 0;
 }
 
 .newsletter-input {
     flex: 1;
-    padding: 1rem 1.5rem;
+    min-width: 0;
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: 0.75rem;
     border: 2px solid var(--border-color);
     background: var(--background-color);
     color: var(--text-color);
-        font-size: 1rem;
+    font-size: var(--font-sm);
     transition: all 0.3s ease;
 }
 
@@ -430,7 +451,7 @@ footer::before {
 .newsletter-button {
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
     color: var(--white);
-    padding: 1rem 2rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: 0.75rem;
     border: none;
     font-weight: 600;
@@ -480,11 +501,11 @@ footer::before {
 
 /* Call to Action Section */
 .cta-section {
-    padding: 6rem 0;
+    padding: var(--spacing-xl) var(--spacing-md);
     background: linear-gradient(135deg, var(--surface-color), rgba(139, 92, 246, 0.1));
     position: relative;
     overflow: hidden;
-    margin-top: 8rem;
+    margin-top: var(--spacing-xl);
 }
 
 .cta-container {
@@ -508,9 +529,9 @@ footer::before {
 }
 
 .cta-section h2 {
-    font-size: 3rem;
+    font-size: var(--font-2xl);
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     -webkit-background-clip: text;
     background-clip: text;
@@ -519,8 +540,8 @@ footer::before {
 
 .cta-section p {
     color: var(--text-muted);
-    font-size: 1.25rem;
-    margin-bottom: 3rem;
+    font-size: var(--font-lg);
+    margin-bottom: var(--spacing-lg);
     line-height: 1.7;
     max-width: 700px;
     margin-left: auto;
@@ -529,7 +550,7 @@ footer::before {
 
 .cta-buttons {
     display: flex;
-    gap: 1.5rem;
+    gap: var(--spacing-md);
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -537,7 +558,7 @@ footer::before {
 .cta-button-primary {
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
     color: var(--white);
-    padding: 1.25rem 2.5rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: 0.75rem;
     font-weight: 600;
     text-decoration: none;
@@ -552,7 +573,7 @@ footer::before {
 .cta-button-secondary {
     background: transparent;
     color: var(--text-color);
-    padding: 1.25rem 2.5rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: 0.75rem;
     font-weight: 600;
     text-decoration: none;
@@ -598,7 +619,7 @@ footer::before {
 .btn {
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
     color: var(--white);
-    padding: 1rem 2rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: 0.75rem;
     border: none;
     cursor: pointer;
@@ -954,7 +975,7 @@ footer::before {
     background: linear-gradient(to bottom, var(--surface-color), rgba(15, 23, 42, 0.95));
     position: relative;
     overflow: hidden;
-    margin-top: 8rem;
+    margin-top: var(--spacing-xl);
     border-top: 1px solid var(--border-color);
 }
 
@@ -976,10 +997,10 @@ footer::before {
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 6rem 2rem 3rem;
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: var(--spacing-xl);
 }
 
 .footer-brand {
@@ -989,7 +1010,7 @@ footer::before {
 .footer-brand .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--spacing-xs);
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
@@ -1013,9 +1034,9 @@ footer::before {
 
 .footer-section h4 {
     color: var(--white);
-    font-size: 1.25rem;
+    font-size: var(--font-lg);
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
     position: relative;
     padding-bottom: 1rem;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
@@ -1040,7 +1061,7 @@ footer::before {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-sm);
 }
 
 .footer-section a {
@@ -1049,7 +1070,7 @@ footer::before {
     transition: all 0.3s ease;
     display: inline-block;
     padding: 0.25rem 0;
-    font-size: 1.1rem;
+    font-size: var(--font-sm);
     position: relative;
 }
 
@@ -1075,12 +1096,12 @@ footer::before {
 
 .footer-bottom-content {
     border-top: 1px solid var(--border-color);
-    padding: 2rem;
-    margin-top: 2rem;
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin-top: var(--spacing-xl);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.95rem;
+    font-size: var(--font-sm);
 }
 
 .footer-bottom-content p {
@@ -1089,7 +1110,7 @@ footer::before {
 
 .footer-bottom-links {
     display: flex;
-    gap: 2rem;
+    gap: var(--spacing-md);
 }
 
 .footer-bottom-links a {
@@ -1121,7 +1142,7 @@ footer::before {
 @media (max-width: 1024px) {
     .footer-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
+        gap: var(--spacing-xl);
     }
 
     .footer-brand {
@@ -1143,7 +1164,7 @@ footer::before {
     .footer-container {
         grid-template-columns: 1fr;
         text-align: center;
-        padding: 4rem 1.5rem 2rem;
+        padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
     }
 
     .footer-section h4::after {
@@ -1157,22 +1178,22 @@ footer::before {
 
     .footer-bottom-content {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: var(--spacing-xl);
         text-align: center;
-        padding: 1.5rem;
+        padding: var(--spacing-xl) var(--spacing-md);
     }
 
     .footer-bottom-links {
         justify-content: center;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: var(--spacing-md);
     }
 }
 
 @media (max-width: 480px) {
     .footer-container {
-        padding: 3rem 1rem 1.5rem;
-        gap: 2.5rem;
+        padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+        gap: var(--spacing-xl);
     }
 
     .footer-brand .logo {
@@ -1184,19 +1205,19 @@ footer::before {
     }
 
     .footer-section h4 {
-        font-size: 1.1rem;
+        font-size: var(--font-lg);
     }
 
     .footer-section a {
-        font-size: 1rem;
+        font-size: var(--font-sm);
     }
 
     .footer-bottom-content {
-        padding: 1rem;
+        padding: var(--spacing-xl) var(--spacing-md);
     }
 
     .footer-bottom-links {
-        gap: 1rem;
+        gap: var(--spacing-md);
     }
 }
 
@@ -1732,5 +1753,52 @@ footer::before {
     .stat-item {
         padding: 1.25rem;
     }
+}
+
+/* Utility classes */
+.text-gradient {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: var(--font-sm);
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
+    color: var(--white);
+    border: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+}
+
+/* Animation classes */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
 }
 
