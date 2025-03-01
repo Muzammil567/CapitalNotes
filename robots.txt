@@ -1,66 +1,75 @@
-# CapitalNotes robots.txt
+# Robots.txt file for CapitalNotes
 User-agent: *
-Allow: /
-Allow: /games/
-Allow: /images/
-Allow: /styles/
-Allow: /scripts/
 
-# Allow crawling of all content
+# Allow all bots to access the site
+Allow: /
+
+# Disallow access to certain files and directories
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /*.md$
+Disallow: /*.yml$
+Disallow: /*.yaml$
+Disallow: /*.config$
+Disallow: /*.lock$
+Disallow: /*.log$
+
+# Sitemaps
+Sitemap: https://capitalnotes.netlify.app/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Additional rules
 Allow: /*.html$
 Allow: /*.css$
 Allow: /*.js$
-Allow: /*.png$
 Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
 Allow: /*.gif$
 Allow: /*.svg$
 Allow: /*.ico$
+Allow: /*.woff$
+Allow: /*.woff2$
+Allow: /*.ttf$
+Allow: /*.eot$
+Allow: /*.pdf$
+Allow: /*.mp3$
+Allow: /*.mp4$
+Allow: /*.webm$
+Allow: /*.ogg$
+Allow: /*.wav$
+Allow: /*.webp$
 
-# Sitemaps
-Sitemap: https://muzammil567.github.io/CapitalNotes/sitemap.xml
-
-# Crawl-delay to prevent server overload
-Crawl-delay: 1
-
-# Disallow potentially sensitive directories
-Disallow: /cgi-bin/
-Disallow: /tmp/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /includes/
-
-# Allow important pages with higher priority
-Allow: /index.html
-Allow: /games.html
-Allow: /about.html
-Allow: /faq.html
-Allow: /contact.html
-
-# Allow legal pages
-Allow: /privacy.html
-Allow: /terms.html
-Allow: /cookie-policy.html
-Allow: /disclaimer.html
-
-# Allow game pages
-Allow: /memory-match.html
-Allow: /snake-game.html
-Allow: /math-quiz.html
-Allow: /word-scramble.html
-
-# Allow AdSense crawler
-User-agent: Mediapartners-Google
-Allow: /
-
-# Allow Google Mobile AdSense
-User-agent: Mediapartners-Google-Mobile
-Allow: /
-
-# Prevent crawling of administrative and system files
-Disallow: /cgi-bin/
-Disallow: /tmp/
-Disallow: /admin/
-Disallow: /*.json$
-Disallow: /*.xml$
+# Allow access to specific directories
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+Allow: /assets/
+Allow: /media/
+Allow: /docs/
+Allow: /downloads/
+Allow: /games/
+Allow: /blog/
+Allow: /news/
+Allow: /about/
+Allow: /contact/
 Allow: /sitemap.xml
-Allow: /ads.txt 
+Allow: /robots.txt
+
+# Block bad bots
+User-agent: BadBot
+Disallow: /
+
+# Clean parameters
+Allow: /*?page=
+Allow: /*?id=
+Allow: /*?category=
+Allow: /*?tag=
+Disallow: /*? 
