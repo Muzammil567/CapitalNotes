@@ -2,73 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Main Pages -->
     <url>
-        <loc>https://capitalnotes.netlify.app/</loc>
+        <loc>https://capitalnotes.online/</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/about.html</loc>
+        <loc>https://capitalnotes.online/about.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/games.html</loc>
+        <loc>https://capitalnotes.online/games.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/snake-game.html</loc>
+        <loc>https://capitalnotes.online/snake-game.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/whack-a-mole.html</loc>
+        <loc>https://capitalnotes.online/whack-a-mole.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/minesweeper.html</loc>
+        <loc>https://capitalnotes.online/minesweeper.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/contact.html</loc>
+        <loc>https://capitalnotes.online/contact.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/privacy.html</loc>
+        <loc>https://capitalnotes.online/privacy.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/terms.html</loc>
+        <loc>https://capitalnotes.online/terms.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/disclaimer.html</loc>
+        <loc>https://capitalnotes.online/disclaimer.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/cookie-policy.html</loc>
+        <loc>https://capitalnotes.online/cookie-policy.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/sitemap.html</loc>
+        <loc>https://capitalnotes.online/sitemap.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -76,37 +76,37 @@
 
     <!-- Game Pages -->
     <url>
-        <loc>https://capitalnotes.netlify.app/memory-match.html</loc>
+        <loc>https://capitalnotes.online/memory-match.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/tetris.html</loc>
+        <loc>https://capitalnotes.online/tetris.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/math-quiz.html</loc>
+        <loc>https://capitalnotes.online/math-quiz.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/word-scramble.html</loc>
+        <loc>https://capitalnotes.online/word-scramble.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/chess.html</loc>
+        <loc>https://capitalnotes.online/chess.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://capitalnotes.netlify.app/tic-tac-toe.html</loc>
+        <loc>https://capitalnotes.online/tic-tac-toe.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -114,7 +114,7 @@
 
     <!-- Help & Support Pages -->
     <url>
-        <loc>https://capitalnotes.netlify.app/faq.html</loc>
+        <loc>https://capitalnotes.online/faq.html</loc>
         <lastmod>2024-03-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

@@ -19,7 +19,7 @@ Disallow: /*.lock$
 Disallow: /*.log$
 
 # Sitemaps
-Sitemap: https://capitalnotes.netlify.app/sitemap.xml
+Sitemap: https://capitalnotes.online/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 10
