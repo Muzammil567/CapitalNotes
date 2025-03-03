@@ -2,144 +2,606 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rock Paper Scissors - The Money Focus</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5437561890480547"
-     crossorigin="anonymous"></script>
-
     <style>
         :root {
-            --color-bg: #1e1b4b;
+            --color-bg: #1a1c2c;
+            --color-grid: #2a2b3d;
+            --color-primary: #4ade80;
+            --color-secondary: #f472b6;
+            --color-power: #7c3aed;
             --color-text: #ffffff;
-            --color-text-muted: #a5b4fc;
-            --color-primary: #ec4899;
-            --color-secondary: #8b5cf6;
-            --color-accent: #06b6d4;
+            --color-score: #2dd4bf;
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--color-bg);
             color: var(--color-text);
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
         .game-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 10px 0;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 120px;
+            padding: 5px;
+        }
+
+        .info-label {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--color-secondary);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+        }
+
+        .game-area {
+            width: min(85vw, 85vh, 600px);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         .choices {
             display: flex;
+            justify-content: center;
             gap: 20px;
-            margin-bottom: 20px;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         .choice {
-            font-size: 3rem;
-            background-color: var(--color-secondary);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            font-size: 3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            user-select: none;
         }
 
         .choice:hover {
             transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .choice.selected {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--color-power);
+        }
+
+        .choice.winner {
+            animation: winner 1s infinite;
+        }
+
+        @keyframes winner {
+            0% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1.1); }
+        }
+
+        .battle-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .player-choice, .computer-choice {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .vs {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-power);
         }
 
         .result {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: bold;
+            text-align: center;
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .score {
-            font-size: 1.2rem;
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        button {
+            padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .achievement {
+            position: fixed;
+            bottom: calc(20px + var(--safe-area-inset-bottom));
+            right: 20px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .game-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-instructions h2 {
+            color: var(--color-secondary);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .game-instructions p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+            margin: 12px 0;
+            color: var(--color-text);
+            opacity: 0.9;
+        }
+
+        .game-instructions ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .game-instructions li {
+            margin: 8px 0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: var(--color-text);
+            opacity: 0.9;
+        }
+
+        @media (max-width: 700px) {
+            .game-container {
+                padding: 10px;
+            }
+
+            .choice {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .player-choice, .computer-choice {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+
+            .game-instructions {
+                padding: 15px;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .game-info {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 8px;
+            }
+
+            .choice {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .player-choice, .computer-choice {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Rock Paper Scissors</h1>
-        <div class="choices">
-            <button class="choice" id="rock">✊</button>
-            <button class="choice" id="paper">✋</button>
-            <button class="choice" id="scissors">✌️</button>
+
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Wins</span>
+                <span class="info-value" id="wins">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Losses</span>
+                <span class="info-value" id="losses">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Draws</span>
+                <span class="info-value" id="draws">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Streak</span>
+                <span class="info-value" id="streak">0</span>
+            </div>
         </div>
-        <div class="result" id="result"></div>
-        <div class="score">
-            <p>Player: <span id="player-score">0</span></p>
-            <p>Computer: <span id="computer-score">0</span></p>
+
+        <div class="game-area">
+        <div class="choices">
+                <div class="choice" data-choice="rock">✊</div>
+                <div class="choice" data-choice="paper">✋</div>
+                <div class="choice" data-choice="scissors">✌️</div>
+            </div>
+
+            <div class="battle-area">
+                <div class="player-choice"></div>
+                <div class="vs">VS</div>
+                <div class="computer-choice"></div>
+            </div>
+
+            <div class="result"></div>
+        </div>
+
+        <div class="controls">
+            <button id="play-again">Play Again</button>
+            <button id="toggle-sound"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <div class="game-instructions">
+            <h2>Welcome to Rock Paper Scissors!</h2>
+            <p>Challenge the computer in this classic game of chance and strategy. Can you achieve the highest winning streak?</p>
+            
+            <h2>Game Features:</h2>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🎮 Simple one-click gameplay</li>
+                <li>🏆 Score and streak tracking</li>
+                <li>🎵 Sound effects</li>
+                <li>🌟 Victory animations</li>
+            </ul>
+            
+            <p>🎮 How to Play:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>✊ Rock crushes Scissors</li>
+                <li>✋ Paper covers Rock</li>
+                <li>✌️ Scissors cuts Paper</li>
+                <li>🎯 Click your choice to play!</li>
+            </ul>
+
+            <p>💫 Tips:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🤔 Try to predict your opponent's next move</li>
+                <li>🔄 Mix up your choices to be less predictable</li>
+                <li>📊 Watch for patterns in computer's choices</li>
+                <li>🏅 Build up your winning streak!</li>
+            </ul>
         </div>
     </div>
 
     <script>
-        const choices = document.querySelector('.choices');
-        const result = document.getElementById('result');
-        const playerScore = document.getElementById('player-score');
-        const computerScore = document.getElementById('computer-score');
-
-        let pScore = 0;
-        let cScore = 0;
-
-        const gameChoices = ['rock', 'paper', 'scissors'];
-
-        choices.addEventListener('click', playGame);
-
-        function playGame(e) {
-            const playerChoice = e.target.id;
-            if (!gameChoices.includes(playerChoice)) return;
-
-            const computerChoice = gameChoices[Math.floor(Math.random() * 3)];
-
-            const winner = getWinner(playerChoice, computerChoice);
-            showResult(winner, computerChoice);
-        }
-
-        function getWinner(p, c) {
-            if (p === c) return 'draw';
-            if ((p === 'rock' && c === 'scissors') ||
-                (p === 'paper' && c === 'rock') ||
-                (p === 'scissors' && c === 'paper')) {
-                return 'player';
+        // Game configuration
+        const config = {
+            choices: ['rock', 'paper', 'scissors'],
+            emojis: {
+                rock: '✊',
+                paper: '✋',
+                scissors: '✌️'
+            },
+            winConditions: {
+                rock: 'scissors',
+                paper: 'rock',
+                scissors: 'paper'
             }
-            return 'computer';
+        };
+
+        // Game state
+        let scores = {
+            wins: parseInt(localStorage.getItem('rpsWins')) || 0,
+            losses: parseInt(localStorage.getItem('rpsLosses')) || 0,
+            draws: parseInt(localStorage.getItem('rpsDraws')) || 0,
+            streak: parseInt(localStorage.getItem('rpsStreak')) || 0
+        };
+        let gameActive = true;
+        let soundEnabled = true;
+
+        // Sound effects
+        const sounds = {
+            select: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbUxJfmAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
+            win: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbpK9GGAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
+            lose: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbf/MTUAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==')
+        };
+
+        // Game elements
+        const choices = document.querySelectorAll('.choice');
+        const playerChoiceDisplay = document.querySelector('.player-choice');
+        const computerChoiceDisplay = document.querySelector('.computer-choice');
+        const resultDisplay = document.querySelector('.result');
+        const winsDisplay = document.getElementById('wins');
+        const lossesDisplay = document.getElementById('losses');
+        const drawsDisplay = document.getElementById('draws');
+        const streakDisplay = document.getElementById('streak');
+        const playAgainButton = document.getElementById('play-again');
+        const soundButton = document.getElementById('toggle-sound');
+
+        // Initialize sounds
+        function initializeSounds() {
+            Object.values(sounds).forEach(sound => {
+                sound.volume = 0.3;
+                sound.load();
+            });
         }
 
-        function showResult(winner, computerChoice) {
-            if (winner === 'player') {
-                pScore++;
-                result.textContent = `You win! Computer chose ${computerChoice}`;
-            } else if (winner === 'computer') {
-                cScore++;
-                result.textContent = `You lose! Computer chose ${computerChoice}`;
+        // Play sound effect
+        function playSound(sound) {
+            if (soundEnabled && sounds[sound]) {
+                const audioClone = sounds[sound].cloneNode();
+                audioClone.volume = 0.3;
+                audioClone.play().catch(error => console.log('Sound play failed:', error));
+            }
+        }
+
+        // Handle player choice
+        function handleChoice(playerChoice) {
+            if (!gameActive) return;
+            
+            // Clear previous selections and results
+            choices.forEach(choice => choice.classList.remove('selected', 'winner'));
+            playerChoiceDisplay.textContent = '';
+            computerChoiceDisplay.textContent = '';
+            resultDisplay.textContent = '';
+            
+            // Show player's choice
+            const playerEmoji = config.emojis[playerChoice];
+            playerChoiceDisplay.textContent = playerEmoji;
+            document.querySelector(`[data-choice="${playerChoice}"]`).classList.add('selected');
+            playSound('select');
+            
+            // Delay computer's choice for suspense
+            setTimeout(() => {
+                const computerChoice = getComputerChoice();
+                const computerEmoji = config.emojis[computerChoice];
+                computerChoiceDisplay.textContent = computerEmoji;
+                
+                // Determine winner
+                const result = getResult(playerChoice, computerChoice);
+                updateGame(result, playerChoice, computerChoice);
+            }, 500);
+        }
+
+        // Get computer's choice
+        function getComputerChoice() {
+            return config.choices[Math.floor(Math.random() * config.choices.length)];
+        }
+
+        // Get game result
+        function getResult(playerChoice, computerChoice) {
+            if (playerChoice === computerChoice) return 'draw';
+            return config.winConditions[playerChoice] === computerChoice ? 'win' : 'lose';
+        }
+
+        // Update game state
+        function updateGame(result, playerChoice, computerChoice) {
+            const playerElement = document.querySelector(`[data-choice="${playerChoice}"]`);
+            const messages = {
+                win: '🏆 You Win!',
+                lose: '😔 You Lose',
+                draw: '🤝 Draw'
+            };
+            
+            // Update scores
+            if (result === 'win') {
+                scores.wins++;
+                scores.streak++;
+                playerElement.classList.add('winner');
+                playSound('win');
+            } else if (result === 'lose') {
+                scores.losses++;
+                scores.streak = 0;
+                document.querySelector(`[data-choice="${computerChoice}"]`).classList.add('winner');
+                playSound('lose');
             } else {
-                result.textContent = `It's a draw! Computer also chose ${computerChoice}`;
+                scores.draws++;
+                playSound('select');
             }
-            playerScore.textContent = pScore;
-            computerScore.textContent = cScore;
+            
+            // Save scores
+            localStorage.setItem('rpsWins', scores.wins);
+            localStorage.setItem('rpsLosses', scores.losses);
+            localStorage.setItem('rpsDraws', scores.draws);
+            localStorage.setItem('rpsStreak', scores.streak);
+            
+            // Update displays
+            resultDisplay.textContent = messages[result];
+            updateScores();
+            
+            // Check for achievements
+            checkAchievements(result);
+            
+            gameActive = false;
         }
+
+        // Update score displays
+        function updateScores() {
+            winsDisplay.textContent = scores.wins;
+            lossesDisplay.textContent = scores.losses;
+            drawsDisplay.textContent = scores.draws;
+            streakDisplay.textContent = scores.streak;
+        }
+
+        // Check for achievements
+        function checkAchievements(result) {
+            if (scores.streak === 5) {
+                showAchievement('5 Wins in a Row! 🔥');
+            } else if (scores.streak === 10) {
+                showAchievement('10 Win Streak! 🌟');
+            }
+            
+            if (scores.wins === 50) {
+                showAchievement('50 Total Wins! 👑');
+            }
+        }
+
+        // Reset game for next round
+        function resetGame() {
+            gameActive = true;
+            choices.forEach(choice => choice.classList.remove('selected', 'winner'));
+            playerChoiceDisplay.textContent = '';
+            computerChoiceDisplay.textContent = '';
+            resultDisplay.textContent = '';
+        }
+
+        // Toggle sound
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            soundButton.innerHTML = soundEnabled ? 
+                '<i class="fas fa-volume-up"></i>' : 
+                '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // Show achievement notification
+        function showAchievement(message) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement';
+            achievement.textContent = message;
+            document.body.appendChild(achievement);
+            
+            setTimeout(() => achievement.classList.add('show'), 100);
+            setTimeout(() => {
+                achievement.classList.remove('show');
+                setTimeout(() => achievement.remove(), 300);
+            }, 3000);
+        }
+
+        // Event Listeners
+        choices.forEach(choice => {
+            choice.addEventListener('click', () => {
+                if (gameActive) {
+                    handleChoice(choice.dataset.choice);
+                }
+            });
+        });
+
+        playAgainButton.addEventListener('click', resetGame);
+        soundButton.addEventListener('click', toggleSound);
+        document.addEventListener('click', initializeSounds, { once: true });
+
+        // Initialize the game
+        updateScores();
+
+        // Show welcome message
+        setTimeout(() => {
+            showAchievement('Welcome to Rock Paper Scissors! ✌️');
+        }, 500);
     </script>
 </body>
 </html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Money Focus Games Blog</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google AdSense Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5437561890480547"
+     crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --color-bg: #1e1b4b;
+            --color-text: #ffffff;
+            --color-text-muted: #a5b4fc;
+            --color-primary: #ec4899;
+            --color-secondary: #8b5cf6;
+            --color-accent: #06b6d4;
+            --color-card-bg: rgba(255, 255, 255, 0.05);
+            --color-card-hover: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            background: var(--color-card-bg);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: var(--color-primary);
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .search-box {
+            background: var(--color-card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--color-text-muted);
+            border-radius: 5px;
+            background: transparent;
+            color: var(--color-text);
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .blog-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--color-card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            background: var(--color-card-hover);
+        }
+
+        .blog-card h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.8rem;
+            line-height: 1.3;
+            color: var(--color-text);
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-meta {
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .blog-excerpt {
+            color: var(--color-text-muted);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            color: var(--color-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .image-container {
+                height: 200px;
+            }
+
+            .image-overlay h3 {
+                font-size: 1.5rem;
+            }
+
+            .blog-meta {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <div class="search-box">
+            <input type="search" class="search-input" placeholder="Search blog posts...">
+        </div>
+
+        <section class="blog-posts">
+            <article class="blog-card">
+                <h3>The Evolution of Our Snake Game</h3>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> March 5, 2024</span>
+                    <span><i class="fas fa-user"></i> Emily Zhang</span>
+                    <span><i class="fas fa-comments"></i> 27 Comments</span>
+                </div>
+                <p class="blog-excerpt">Discover how we transformed a classic into a modern masterpiece with innovative features and multiplayer modes. From simple beginnings to a feature-rich gaming experience, follow our journey of reimagining this timeless classic.</p>
+                <a href="blog-post-4.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="blog-card">
+                <h3>Making Memory Match Magic</h3>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> March 12, 2024</span>
+                    <span><i class="fas fa-user"></i> Alex Chen</span>
+                    <span><i class="fas fa-comments"></i> 42 Comments</span>
+                </div>
+                <p class="blog-excerpt">From simple card-flipping to an educational powerhouse - explore how our Memory Match game evolved into a platform that combines fun with learning, bringing together players of all ages.</p>
+                <a href="blog-post-5.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="blog-card">
+                <h3>Why Browser Games Are Still Awesome in 2025</h3>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> March 8, 2024</span>
+                    <span><i class="fas fa-user"></i> Mike Torres</span>
+                    <span><i class="fas fa-comments"></i> 31 Comments</span>
+                </div>
+                <p class="blog-excerpt">Explore why browser games continue to thrive in an era of high-end gaming. Discover how accessibility, instant play, and continuous innovation keep browser games relevant and engaging for millions of players worldwide.</p>
+                <a href="blog-post-3.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="blog-card">
+                <h3>Top 5 Tricks to Master Puzzle Blocks</h3>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> March 5, 2024</span>
+                    <span><i class="fas fa-user"></i> Sarah Johnson</span>
+                    <span><i class="fas fa-comments"></i> 18 Comments</span>
+                </div>
+                <p class="blog-excerpt">Master the art of puzzle-solving with these expert strategies. Learn the techniques used by top players and discover how to approach each level with confidence and skill.</p>
+                <a href="blog-post-2.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="blog-card">
+                <h3>How We Designed Our 12 Games</h3>
+                <div class="blog-meta">
+                    <span><i class="fas fa-calendar"></i> March 1, 2024</span>
+                    <span><i class="fas fa-user"></i> David Park</span>
+                    <span><i class="fas fa-comments"></i> 24 Comments</span>
+                </div>
+                <p class="blog-excerpt">The journey of creating our collection of browser games. From initial concepts to final releases, learn about the challenges, victories, and lessons learned along the way.</p>
+                <a href="blog-post-1.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </article>
+        </section>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            blogCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+                const meta = card.querySelector('.blog-meta').textContent.toLowerCase();
+                
+                if (searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    excerpt.includes(searchTerm) || 
+                    meta.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

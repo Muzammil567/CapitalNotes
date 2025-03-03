@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Hangman - The Money Focus</title>
+    <title>Match Quiz - The Money Focus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -90,8 +90,8 @@
             font-weight: bold;
         }
 
-        .hangman-area {
-            width: min(85vw, 85vh, 400px);
+        .game-area {
+            width: min(85vw, 85vh, 600px);
             margin: 20px 0;
             display: flex;
             flex-direction: column;
@@ -99,61 +99,75 @@
             gap: 20px;
         }
 
-        #word-display {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            letter-spacing: 0.5rem;
-            margin: 20px 0;
-            text-align: center;
-            min-height: 3rem;
-        }
-
-        #hangman {
-            font-size: clamp(2rem, 8vw, 4rem);
-            margin: 20px 0;
+        .category {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--color-secondary);
-            text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
+            margin: 10px 0;
+            text-align: center;
         }
 
-        .keyboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-            gap: 8px;
+        .question {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            text-align: center;
+            margin: 20px 0;
+            min-height: 3rem;
+            padding: 15px;
+            background: var(--color-grid);
+            border-radius: 10px;
             width: 100%;
-            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
             margin: 20px 0;
         }
 
-        .key {
-            aspect-ratio: 1;
+        .option {
+            padding: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             border: none;
             border-radius: 8px;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            color: white;
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-word;
         }
 
-        .key:hover {
+        .option:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
         }
 
-        .key:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .option.selected {
+            background: var(--color-power);
+            transform: scale(0.98);
         }
 
-        .key.correct {
+        .option.correct {
             background: var(--color-primary);
+            pointer-events: none;
         }
 
-        .key.wrong {
+        .option.wrong {
             background: #ef4444;
+            pointer-events: none;
+        }
+
+        .timer {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--color-score);
+            margin: 10px 0;
+            font-weight: bold;
         }
 
         .controls {
@@ -162,6 +176,7 @@
             justify-content: center;
             margin: 10px 0;
             width: 100%;
+            flex-wrap: wrap;
         }
 
         button {
@@ -187,21 +202,6 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
-        }
-
-        .category {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            color: var(--color-secondary);
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        .hint {
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            color: var(--color-power);
-            margin: 10px 0;
-            text-align: center;
-            min-height: 1.5em;
         }
 
         .achievement {
@@ -280,11 +280,15 @@
                 padding: 8px;
             }
 
-            .keyboard {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
                 gap: 5px;
             }
 
-            .key {
+            button {
                 font-size: 0.9rem;
             }
         }
@@ -292,64 +296,61 @@
 </head>
 <body>
     <div class="game-container">
-        <h1>Hangman</h1>
+        <h1>Match Quiz</h1>
 
         <div class="game-info">
             <div class="info-item">
-                <span class="info-label">Wins</span>
-                <span class="info-value" id="wins">0</span>
+                <span class="info-label">Score</span>
+                <span class="info-value" id="score">0</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Streak</span>
                 <span class="info-value" id="streak">0</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Best Streak</span>
-                <span class="info-value" id="bestStreak">0</span>
+                <span class="info-label">Best Score</span>
+                <span class="info-value" id="bestScore">0</span>
             </div>
         </div>
 
-        <div class="hangman-area">
+        <div class="game-area">
             <div class="category" id="category">Category: Programming</div>
-            <div id="hangman"></div>
-        <div id="word-display"></div>
-            <div class="hint" id="hint"></div>
-            
-            <div class="keyboard" id="keyboard"></div>
+            <div class="timer" id="timer">Time: 30s</div>
+            <div class="question" id="question"></div>
+            <div class="options-grid" id="options"></div>
         </div>
 
         <div class="controls">
-            <button id="new-game">New Game</button>
-            <button id="hint-btn">Use Hint</button>
+            <button id="next">Next Question</button>
             <button id="toggle-sound"><i class="fas fa-volume-up"></i></button>
         </div>
 
         <div class="game-instructions">
-            <h2>Welcome to Hangman!</h2>
-            <p>Test your vocabulary and problem-solving skills in this classic word-guessing game!</p>
+            <h2>Welcome to Match Quiz!</h2>
+            <p>Test your knowledge with this fast-paced matching quiz!</p>
             
             <h2>Game Features:</h2>
             <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li>🎯 Multiple word categories</li>
-                <li>💡 Helpful hints system</li>
+                <li>🎯 Multiple categories</li>
+                <li>⏱️ Time-based challenges</li>
                 <li>🎵 Sound effects</li>
-                <li>🏆 Win streak tracking</li>
+                <li>🏆 Score tracking</li>
             </ul>
             
             <p>🎮 How to Play:</p>
             <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li>1️⃣ Choose letters to guess the word</li>
-                <li>2️⃣ Correct guesses reveal letters</li>
-                <li>3️⃣ Wrong guesses build the hangman</li>
-                <li>4️⃣ Use hints when stuck (costs a guess)</li>
+                <li>1️⃣ Read the question carefully</li>
+                <li>2️⃣ Choose the correct answer</li>
+                <li>3️⃣ Score points for correct answers</li>
+                <li>4️⃣ Build your streak for bonus points!</li>
             </ul>
 
             <p>💫 Tips:</p>
             <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li>🔤 Start with common vowels (A, E, I, O, U)</li>
-                <li>📊 Look for common consonants (R, S, T, N)</li>
-                <li>🧩 Watch for patterns (-ING, -TION)</li>
-                <li>💭 Use the category as a clue!</li>
+                <li>🔍 Read all options before selecting</li>
+                <li>⚡ Watch the timer - but stay focused</li>
+                <li>🎯 Build streaks for higher scores</li>
+                <li>📚 Learn from incorrect answers</li>
             </ul>
         </div>
     </div>
@@ -360,71 +361,100 @@
             categories: {
                 programming: {
                     name: 'Programming',
-                    words: [
-                        { word: 'JAVASCRIPT', hint: 'Popular web programming language' },
-                        { word: 'PYTHON', hint: 'Snake-named programming language' },
-                        { word: 'REACT', hint: 'Facebook\'s UI library' },
-                        { word: 'ANGULAR', hint: 'Google\'s web framework' },
-                        { word: 'NODEJS', hint: 'Server-side JavaScript runtime' },
-                        { word: 'DATABASE', hint: 'Stores and organizes data' },
-                        { word: 'ALGORITHM', hint: 'Step-by-step problem solving' },
-                        { word: 'FRONTEND', hint: 'What users see and interact with' },
-                        { word: 'BACKEND', hint: 'Server-side processing' },
-                        { word: 'FUNCTION', hint: 'Reusable block of code' }
+                    questions: [
+                        {
+                            question: 'Which language is known for its use in web browsers?',
+                            options: ['JavaScript', 'Java', 'Python', 'C++'],
+                            correct: 0
+                        },
+                        {
+                            question: 'What does HTML stand for?',
+                            options: ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyperlink Text Management Language'],
+                            correct: 0
+                        },
+                        {
+                            question: 'Which symbol is used for comments in Python?',
+                            options: ['#', '//', '/*', '<!--'],
+                            correct: 0
+                        },
+                        {
+                            question: 'What is the correct file extension for JavaScript files?',
+                            options: ['.js', '.javascript', '.script', '.jsx'],
+                            correct: 0
+                        },
+                        {
+                            question: 'Which of these is NOT a JavaScript framework?',
+                            options: ['Django', 'React', 'Vue', 'Angular'],
+                            correct: 0
+                        }
                     ]
                 },
                 webdev: {
                     name: 'Web Development',
-                    words: [
-                        { word: 'HTML', hint: 'Markup language for web pages' },
-                        { word: 'CSS', hint: 'Styles web pages' },
-                        { word: 'API', hint: 'Interface for applications' },
-                        { word: 'RESPONSIVE', hint: 'Adapts to screen size' },
-                        { word: 'BOOTSTRAP', hint: 'Popular CSS framework' },
-                        { word: 'WEBPACK', hint: 'Module bundler' },
-                        { word: 'SASS', hint: 'CSS preprocessor' },
-                        { word: 'DOCKER', hint: 'Container platform' },
-                        { word: 'GIT', hint: 'Version control system' },
-                        { word: 'REST', hint: 'API architecture style' }
+                    questions: [
+                        {
+                            question: 'Which CSS property is used to change text color?',
+                            options: ['color', 'text-color', 'font-color', 'text-style'],
+                            correct: 0
+                        },
+                        {
+                            question: 'What does CSS stand for?',
+                            options: ['Cascading Style Sheets', 'Creative Style Sheets', 'Computer Style Sheets', 'Colorful Style Sheets'],
+                            correct: 0
+                        },
+                        {
+                            question: 'Which HTML tag is used to create a hyperlink?',
+                            options: ['<a>', '<link>', '<href>', '<url>'],
+                            correct: 0
+                        },
+                        {
+                            question: 'What is the purpose of the <head> tag in HTML?',
+                            options: ['Contains metadata', 'Creates a header', 'Defines navigation', 'Styles content'],
+                            correct: 0
+                        },
+                        {
+                            question: 'Which property is used to create space between elements?',
+                            options: ['margin', 'padding', 'spacing', 'gap'],
+                            correct: 0
+                        }
                     ]
                 }
             },
-            maxGuesses: 6,
-            hangmanStages: ['😊', '😐', '😕', '😟', '😨', '😱', '💀']
+            timeLimit: 30,
+            pointsPerQuestion: 100,
+            streakBonus: 50,
+            timePenalty: 5
         };
 
         // Game state
-        let currentWord = '';
-        let currentHint = '';
-        let guessedLetters = new Set();
-        let remainingGuesses;
+        let currentQuestion = null;
+        let timeLeft = config.timeLimit;
+        let timer = null;
         let gameActive = false;
         let soundEnabled = true;
         let scores = {
-            wins: parseInt(localStorage.getItem('hangmanWins')) || 0,
-            streak: parseInt(localStorage.getItem('hangmanStreak')) || 0,
-            bestStreak: parseInt(localStorage.getItem('hangmanBestStreak')) || 0
+            current: parseInt(localStorage.getItem('matchQuizScore')) || 0,
+            streak: parseInt(localStorage.getItem('matchQuizStreak')) || 0,
+            best: parseInt(localStorage.getItem('matchQuizBest')) || 0
         };
 
         // Sound effects
         const sounds = {
             correct: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbpK9GGAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
             wrong: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbf/MTUAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
-            win: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbpK9GGAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==')
+            timeUp: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbUxJfmAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==')
         };
 
         // Game elements
         const categoryDisplay = document.getElementById('category');
-        const wordDisplay = document.getElementById('word-display');
-        const hangmanDisplay = document.getElementById('hangman');
-        const hintDisplay = document.getElementById('hint');
-        const keyboard = document.getElementById('keyboard');
-        const newGameButton = document.getElementById('new-game');
-        const hintButton = document.getElementById('hint-btn');
+        const questionDisplay = document.getElementById('question');
+        const optionsGrid = document.getElementById('options');
+        const timerDisplay = document.getElementById('timer');
+        const nextButton = document.getElementById('next');
         const soundButton = document.getElementById('toggle-sound');
-        const winsDisplay = document.getElementById('wins');
+        const scoreDisplay = document.getElementById('score');
         const streakDisplay = document.getElementById('streak');
-        const bestStreakDisplay = document.getElementById('bestStreak');
+        const bestScoreDisplay = document.getElementById('bestScore');
 
         // Initialize sounds
         function initializeSounds() {
@@ -443,124 +473,120 @@
             }
         }
 
-        // Create keyboard
-        function createKeyboard() {
-            keyboard.innerHTML = '';
-            for (let i = 65; i <= 90; i++) {
-                const letter = String.fromCharCode(i);
-                const button = document.createElement('button');
-                button.className = 'key';
-                button.textContent = letter;
-                button.addEventListener('click', () => handleGuess(letter));
-                keyboard.appendChild(button);
-            }
-        }
-
-        // Get random word
-        function getRandomWord() {
+        // Get random question
+        function getRandomQuestion() {
             const categories = Object.keys(config.categories);
             const category = categories[Math.floor(Math.random() * categories.length)];
-            const wordList = config.categories[category].words;
-            const wordObj = wordList[Math.floor(Math.random() * wordList.length)];
+            const questions = config.categories[category].questions;
+            const question = questions[Math.floor(Math.random() * questions.length)];
             
             categoryDisplay.textContent = `Category: ${config.categories[category].name}`;
-            return wordObj;
+            return question;
         }
 
         // Update display
         function updateDisplay() {
-            // Update word display
-            wordDisplay.textContent = currentWord
-                .split('')
-                .map(letter => guessedLetters.has(letter) ? letter : '_')
-                .join(' ');
-
-            // Update hangman
-            hangmanDisplay.textContent = config.hangmanStages[config.maxGuesses - remainingGuesses];
-
-            // Update keyboard
-            document.querySelectorAll('.key').forEach(button => {
-                const letter = button.textContent;
-                if (guessedLetters.has(letter)) {
-                    button.disabled = true;
-                    button.className = `key ${currentWord.includes(letter) ? 'correct' : 'wrong'}`;
-                }
-            });
-
-            // Update scores
-            winsDisplay.textContent = scores.wins;
+            questionDisplay.textContent = currentQuestion.question;
+            scoreDisplay.textContent = scores.current;
             streakDisplay.textContent = scores.streak;
-            bestStreakDisplay.textContent = scores.bestStreak;
+            bestScoreDisplay.textContent = scores.best;
+            timerDisplay.textContent = `Time: ${timeLeft}s`;
+            
+            optionsGrid.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(index));
+                optionsGrid.appendChild(button);
+            });
         }
 
-        // Handle guess
-        function handleGuess(letter) {
-            if (!gameActive || guessedLetters.has(letter)) return;
-
-            guessedLetters.add(letter);
-            
-            if (currentWord.includes(letter)) {
-                playSound('correct');
-                
-                // Check for win
-                const won = currentWord.split('').every(l => guessedLetters.has(l));
-                if (won) {
-                    gameWon();
-                }
-            } else {
-                remainingGuesses--;
-                playSound('wrong');
-                
-                // Check for loss
-                if (remainingGuesses === 0) {
-                    gameLost();
-                }
-            }
-
+        // Start timer
+        function startTimer() {
+            clearInterval(timer);
+            timeLeft = config.timeLimit;
             updateDisplay();
-        }
-
-        // Handle game won
-        function gameWon() {
-            gameActive = false;
-            scores.wins++;
-            scores.streak++;
-            if (scores.streak > scores.bestStreak) {
-                scores.bestStreak = scores.streak;
-                showAchievement('New Best Streak! 🏆');
-            }
-            saveScores();
-            playSound('win');
-            showAchievement('You Won! 🎉');
             
-            // Check for achievements
-            if (scores.streak === 3) showAchievement('3 Wins in a Row! 🔥');
-            if (scores.streak === 5) showAchievement('5 Win Streak! 🌟');
-            if (scores.wins === 10) showAchievement('10 Total Wins! 👑');
+            timer = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    timeUp();
+                }
+            }, 1000);
         }
 
-        // Handle game lost
-        function gameLost() {
+        // Time up
+        function timeUp() {
+            clearInterval(timer);
             gameActive = false;
+            playSound('timeUp');
+            showAchievement('Time\'s Up! 😢');
             scores.streak = 0;
             saveScores();
-            showAchievement(`Game Over! The word was: ${currentWord} 😢`);
-        }
-
-        // Save scores
-        function saveScores() {
-            localStorage.setItem('hangmanWins', scores.wins);
-            localStorage.setItem('hangmanStreak', scores.streak);
-            localStorage.setItem('hangmanBestStreak', scores.bestStreak);
-        }
-
-        // Show hint
-        function showHint() {
-            if (!gameActive || remainingGuesses <= 1) return;
             
-            hintDisplay.textContent = currentHint;
-            remainingGuesses--;
+            const options = document.querySelectorAll('.option');
+            options[currentQuestion.correct].classList.add('correct');
+            nextButton.disabled = false;
+        }
+
+        // Check answer
+        function checkAnswer(index) {
+            if (!gameActive) return;
+            
+            gameActive = false;
+            clearInterval(timer);
+            
+            const options = document.querySelectorAll('.option');
+            const selectedOption = options[index];
+            const correctOption = options[currentQuestion.correct];
+            
+            if (index === currentQuestion.correct) {
+                // Correct answer
+                selectedOption.classList.add('correct');
+                playSound('correct');
+                
+                // Calculate score
+                const timeBonus = Math.floor(timeLeft * 2);
+                const streakBonus = scores.streak * config.streakBonus;
+                const points = config.pointsPerQuestion + timeBonus + streakBonus;
+                
+                scores.current += points;
+                scores.streak++;
+                
+                if (scores.current > scores.best) {
+                    scores.best = scores.current;
+                    showAchievement('New High Score! 🏆');
+                }
+                
+                saveScores();
+                showAchievement(`Correct! +${points} points 🎉`);
+                
+                // Check for achievements
+                if (scores.streak === 3) showAchievement('3 in a Row! 🔥');
+                if (scores.streak === 5) showAchievement('5 Streak! 🌟');
+            } else {
+                // Wrong answer
+                selectedOption.classList.add('wrong');
+                correctOption.classList.add('correct');
+                playSound('wrong');
+                scores.streak = 0;
+                saveScores();
+            }
+            
+            nextButton.disabled = false;
+        }
+
+        // Next question
+        function nextQuestion() {
+            currentQuestion = getRandomQuestion();
+            gameActive = true;
+            nextButton.disabled = true;
+            
             updateDisplay();
+            startTimer();
         }
 
         // Toggle sound
@@ -569,6 +595,13 @@
             soundButton.innerHTML = soundEnabled ? 
                 '<i class="fas fa-volume-up"></i>' : 
                 '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // Save scores
+        function saveScores() {
+            localStorage.setItem('matchQuizScore', scores.current);
+            localStorage.setItem('matchQuizStreak', scores.streak);
+            localStorage.setItem('matchQuizBest', scores.best);
         }
 
         // Show achievement notification
@@ -585,46 +618,21 @@
             }, 3000);
         }
 
-        // Start new game
-        function startNewGame() {
-            const wordObj = getRandomWord();
-            currentWord = wordObj.word;
-            currentHint = wordObj.hint;
-            guessedLetters.clear();
-            remainingGuesses = config.maxGuesses;
-            gameActive = true;
-            hintDisplay.textContent = '';
-            createKeyboard();
-            updateDisplay();
-            showAchievement('New Game Started! 🎮');
-        }
-
         // Event Listeners
-        newGameButton.addEventListener('click', startNewGame);
-        hintButton.addEventListener('click', showHint);
+        nextButton.addEventListener('click', nextQuestion);
         soundButton.addEventListener('click', toggleSound);
         document.addEventListener('click', initializeSounds, { once: true });
 
-        // Handle keyboard input
-        document.addEventListener('keydown', (e) => {
-            const key = e.key.toUpperCase();
-            if (/^[A-Z]$/.test(key)) {
-                handleGuess(key);
-            }
-        });
-
         // Initialize the game
-        createKeyboard();
         updateDisplay();
 
         // Show welcome message
         setTimeout(() => {
-            showAchievement('Welcome to Hangman! 🎮');
+            showAchievement('Welcome to Match Quiz! 🎮');
         }, 500);
 
-        // Start first game
-        startNewGame();
+        // Start first question
+        nextQuestion();
     </script>
 </body>
-</html>
-
+</html> 

@@ -73,3 +73,37 @@ Allow: /*?id=
 Allow: /*?category=
 Allow: /*?tag=
 Disallow: /*? 
+
+# New rules from the code block
+Allow: /games/
+Allow: /about.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /faq.html
+Allow: /sitemap.xml
+
+# Disallow admin and system files
+Disallow: /cgi-bin/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /.vscode/
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /.gitignore
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /yarn.lock
+Disallow: /*.log
+Disallow: /*.md
+Disallow: /*.txt
+Disallow: /*.json
+
+# Allow CSS, JavaScript, and image files
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.ico$ 

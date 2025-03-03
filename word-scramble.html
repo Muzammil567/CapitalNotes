@@ -2,161 +2,626 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Word Scramble - The Money Focus</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5437561890480547"
-     crossorigin="anonymous"></script>
-
     <style>
         :root {
-            --color-bg: #1e1b4b;
+            --color-bg: #1a1c2c;
+            --color-grid: #2a2b3d;
+            --color-primary: #4ade80;
+            --color-secondary: #f472b6;
+            --color-power: #7c3aed;
             --color-text: #ffffff;
-            --color-text-muted: #a5b4fc;
-            --color-primary: #ec4899;
-            --color-secondary: #8b5cf6;
-            --color-accent: #06b6d4;
+            --color-score: #2dd4bf;
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--color-bg);
             color: var(--color-text);
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
         }
 
         .game-container {
-            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 10px 0;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-align: center;
         }
 
-        #scrambled-word {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
         }
 
-        #guess {
-            font-size: 1.5rem;
-            padding: 0.5rem;
-            width: 200px;
-            margin-bottom: 1rem;
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 120px;
+            padding: 5px;
+        }
+
+        .info-label {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--color-secondary);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+        }
+
+        .game-area {
+            width: min(85vw, 85vh, 600px);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .category {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--color-secondary);
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .scrambled-word {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: bold;
+            letter-spacing: 0.5rem;
+            margin: 20px 0;
+            color: var(--color-power);
+            text-align: center;
+            min-height: 3rem;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+        }
+
+        .hint {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: var(--color-power);
+            margin: 10px 0;
+            text-align: center;
+            min-height: 1.5em;
+        }
+
+        .answer-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            border: none;
+            border-radius: 8px;
+            background: var(--color-grid);
+            color: var(--color-text);
+            text-align: center;
+            margin: 10px 0;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--color-power);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         button {
-            background-color: var(--color-primary);
-            color: var(--color-text);
+            padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1.2rem;
-            margin: 0.5rem;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
         button:hover {
-            background-color: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
         }
 
-        #result {
-            font-size: 1.5rem;
-            margin-top: 1rem;
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        #score {
-            font-size: 1.2rem;
-            margin-top: 1rem;
+        .timer {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--color-score);
+            margin: 10px 0;
+            font-weight: bold;
         }
 
-        .back-home {
-            background-color: var(--color-secondary);
+        .achievement {
+            position: fixed;
+            bottom: calc(20px + var(--safe-area-inset-bottom));
+            right: 20px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .game-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-instructions h2 {
+            color: var(--color-secondary);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .game-instructions p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+            margin: 12px 0;
             color: var(--color-text);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
-            margin-top: 1rem;
-            display: inline-block;
-            transition: background-color 0.3s ease;
+            opacity: 0.9;
         }
 
-        .back-home:hover {
-            background-color: var(--color-primary);
+        .game-instructions ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .game-instructions li {
+            margin: 8px 0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: var(--color-text);
+            opacity: 0.9;
+        }
+
+        @media (max-width: 700px) {
+            .game-container {
+                padding: 10px;
+            }
+
+            .game-instructions {
+                padding: 15px;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .game-info {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 8px;
+            }
+
+            .controls {
+                gap: 5px;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Word Scramble</h1>
-        <div id="scrambled-word" aria-live="polite"></div>
-        <input type="text" id="guess" aria-label="Enter your guess">
-        <button id="submit" aria-label="Submit guess">Submit</button>
-        <div id="result" aria-live="polite"></div>
-        <div id="score" aria-live="polite">Score: 0</div>
-        <button id="next" aria-label="Next word">Next Word</button>
-        <a href="index.html" class="back-home">Back to Home</a>
+
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Score</span>
+                <span class="info-value" id="score">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Streak</span>
+                <span class="info-value" id="streak">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Best Score</span>
+                <span class="info-value" id="bestScore">0</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="category" id="category">Category: Programming</div>
+            <div class="timer" id="timer">Time: 30s</div>
+            <div class="scrambled-word" id="scrambled-word"></div>
+            <div class="hint" id="hint"></div>
+            
+            <input type="text" class="answer-input" id="answer-input" placeholder="Type your answer..." autocomplete="off">
+        </div>
+
+        <div class="controls">
+            <button id="check">Check Answer</button>
+            <button id="hint-btn">Use Hint</button>
+            <button id="skip">Skip Word</button>
+            <button id="toggle-sound"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <div class="game-instructions">
+            <h2>Welcome to Word Scramble!</h2>
+            <p>Unscramble the letters to find the hidden word. How many can you solve?</p>
+            
+            <h2>Game Features:</h2>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🎯 Multiple word categories</li>
+                <li>⏱️ Time-based challenges</li>
+                <li>💡 Helpful hints system</li>
+                <li>🎵 Sound effects</li>
+            </ul>
+            
+            <p>🎮 How to Play:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>1️⃣ Look at the scrambled letters</li>
+                <li>2️⃣ Type your answer in the input box</li>
+                <li>3️⃣ Click 'Check Answer' or press Enter</li>
+                <li>4️⃣ Use hints if you're stuck!</li>
+            </ul>
+
+            <p>💫 Tips:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🔤 Look for common prefixes and suffixes</li>
+                <li>📊 Try rearranging letters in your mind</li>
+                <li>🧩 Use the category as a clue</li>
+                <li>⚡ Watch the timer - but don't panic!</li>
+            </ul>
+        </div>
     </div>
 
     <script>
-        const words = ['javascript', 'python', 'html', 'css', 'react', 'vue', 'angular', 'nodejs', 'express', 'mongodb'];
-        const scrambledWordEl = document.getElementById('scrambled-word');
-        const guessEl = document.getElementById('guess');
-        const submitBtn = document.getElementById('submit');
-        const resultEl = document.getElementById('result');
-        const scoreEl = document.getElementById('score');
-        const nextBtn = document.getElementById('next');
+        // Game configuration
+        const config = {
+            categories: {
+                programming: {
+                    name: 'Programming',
+                    words: [
+                        { word: 'JAVASCRIPT', hint: 'Popular web programming language' },
+                        { word: 'PYTHON', hint: 'Snake-named programming language' },
+                        { word: 'REACT', hint: 'Facebook\'s UI library' },
+                        { word: 'ANGULAR', hint: 'Google\'s web framework' },
+                        { word: 'NODEJS', hint: 'Server-side JavaScript runtime' },
+                        { word: 'DATABASE', hint: 'Stores and organizes data' },
+                        { word: 'ALGORITHM', hint: 'Step-by-step problem solving' },
+                        { word: 'FRONTEND', hint: 'What users see and interact with' },
+                        { word: 'BACKEND', hint: 'Server-side processing' },
+                        { word: 'FUNCTION', hint: 'Reusable block of code' }
+                    ]
+                },
+                webdev: {
+                    name: 'Web Development',
+                    words: [
+                        { word: 'HTML', hint: 'Markup language for web pages' },
+                        { word: 'CSS', hint: 'Styles web pages' },
+                        { word: 'API', hint: 'Interface for applications' },
+                        { word: 'RESPONSIVE', hint: 'Adapts to screen size' },
+                        { word: 'BOOTSTRAP', hint: 'Popular CSS framework' },
+                        { word: 'WEBPACK', hint: 'Module bundler' },
+                        { word: 'SASS', hint: 'CSS preprocessor' },
+                        { word: 'DOCKER', hint: 'Container platform' },
+                        { word: 'GIT', hint: 'Version control system' },
+                        { word: 'REST', hint: 'API architecture style' }
+                    ]
+                }
+            },
+            timeLimit: 30,
+            pointsPerWord: 100,
+            streakBonus: 50,
+            timePenalty: 10
+        };
 
-        let currentWord;
-        let score = 0;
+        // Game state
+        let currentWord = '';
+        let currentHint = '';
+        let scrambledWord = '';
+        let timeLeft = config.timeLimit;
+        let timer = null;
+        let gameActive = false;
+        let soundEnabled = true;
+        let scores = {
+            current: parseInt(localStorage.getItem('wordScrambleScore')) || 0,
+            streak: parseInt(localStorage.getItem('wordScrambleStreak')) || 0,
+            best: parseInt(localStorage.getItem('wordScrambleBest')) || 0
+        };
 
-        function scrambleWord(word) {
-            return word.split('').sort(() => Math.random() - 0.5).join('');
+        // Sound effects
+        const sounds = {
+            correct: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbpK9GGAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
+            wrong: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbf/MTUAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
+            timeUp: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbUxJfmAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==')
+        };
+
+        // Game elements
+        const categoryDisplay = document.getElementById('category');
+        const scrambledDisplay = document.getElementById('scrambled-word');
+        const hintDisplay = document.getElementById('hint');
+        const answerInput = document.getElementById('answer-input');
+        const timerDisplay = document.getElementById('timer');
+        const checkButton = document.getElementById('check');
+        const hintButton = document.getElementById('hint-btn');
+        const skipButton = document.getElementById('skip');
+        const soundButton = document.getElementById('toggle-sound');
+        const scoreDisplay = document.getElementById('score');
+        const streakDisplay = document.getElementById('streak');
+        const bestScoreDisplay = document.getElementById('bestScore');
+
+        // Initialize sounds
+        function initializeSounds() {
+            Object.values(sounds).forEach(sound => {
+                sound.volume = 0.3;
+                sound.load();
+            });
         }
 
-        function generateWord() {
-            currentWord = words[Math.floor(Math.random() * words.length)];
-            scrambledWordEl.textContent = scrambleWord(currentWord);
-            guessEl.value = '';
-            resultEl.textContent = '';
-        }
-
-        function checkGuess() {
-            const userGuess = guessEl.value.toLowerCase();
-            if (userGuess === currentWord) {
-                resultEl.textContent = 'Correct!';
-                score++;
-            } else {
-                resultEl.textContent = `Incorrect. The word was ${currentWord}.`;
+        // Play sound effect
+        function playSound(sound) {
+            if (soundEnabled && sounds[sound]) {
+                const audioClone = sounds[sound].cloneNode();
+                audioClone.volume = 0.3;
+                audioClone.play().catch(error => console.log('Sound play failed:', error));
             }
-            scoreEl.textContent = `Score: ${score}`;
         }
 
-        submitBtn.addEventListener('click', checkGuess);
-        nextBtn.addEventListener('click', generateWord);
+        // Get random word
+        function getRandomWord() {
+            const categories = Object.keys(config.categories);
+            const category = categories[Math.floor(Math.random() * categories.length)];
+            const wordList = config.categories[category].words;
+            const wordObj = wordList[Math.floor(Math.random() * wordList.length)];
+            
+            categoryDisplay.textContent = `Category: ${config.categories[category].name}`;
+            return wordObj;
+        }
 
-        guessEl.addEventListener('keydown', (e) => {
+        // Scramble word
+        function scrambleWord(word) {
+            const letters = word.split('');
+            for (let i = letters.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [letters[i], letters[j]] = [letters[j], letters[i]];
+            }
+            return letters.join('');
+        }
+
+        // Update display
+        function updateDisplay() {
+            scrambledDisplay.textContent = scrambledWord;
+            scoreDisplay.textContent = scores.current;
+            streakDisplay.textContent = scores.streak;
+            bestScoreDisplay.textContent = scores.best;
+            timerDisplay.textContent = `Time: ${timeLeft}s`;
+        }
+
+        // Start timer
+        function startTimer() {
+            clearInterval(timer);
+            timeLeft = config.timeLimit;
+            updateDisplay();
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        // Time up
+        function timeUp() {
+            clearInterval(timer);
+            gameActive = false;
+            playSound('timeUp');
+            showAchievement('Time\'s Up! 😢');
+            scores.streak = 0;
+            saveScores();
+            nextWord();
+        }
+
+        // Check answer
+        function checkAnswer() {
+            if (!gameActive) return;
+            
+            const answer = answerInput.value.trim().toUpperCase();
+            
+            if (answer === currentWord) {
+                // Correct answer
+                gameActive = false;
+                clearInterval(timer);
+                playSound('correct');
+                
+                // Calculate score
+                const timeBonus = Math.floor(timeLeft * 2);
+                const streakBonus = scores.streak * config.streakBonus;
+                const points = config.pointsPerWord + timeBonus + streakBonus;
+                
+                scores.current += points;
+                scores.streak++;
+                
+                if (scores.current > scores.best) {
+                    scores.best = scores.current;
+                    showAchievement('New High Score! 🏆');
+                }
+                
+                saveScores();
+                showAchievement(`Correct! +${points} points 🎉`);
+                
+                // Check for achievements
+                if (scores.streak === 3) showAchievement('3 in a Row! 🔥');
+                if (scores.streak === 5) showAchievement('5 Streak! 🌟');
+                
+                setTimeout(nextWord, 1500);
+            } else {
+                // Wrong answer
+                playSound('wrong');
+                scores.streak = 0;
+                timeLeft = Math.max(0, timeLeft - config.timePenalty);
+                updateDisplay();
+                answerInput.classList.add('wrong');
+                setTimeout(() => answerInput.classList.remove('wrong'), 500);
+            }
+        }
+
+        // Show hint
+        function showHint() {
+            if (!gameActive || timeLeft <= 5) return;
+            
+            hintDisplay.textContent = currentHint;
+            timeLeft = Math.max(0, timeLeft - 5);
+            updateDisplay();
+        }
+
+        // Skip word
+        function skipWord() {
+            if (!gameActive) return;
+            
+            scores.streak = 0;
+            saveScores();
+            showAchievement(`Skipped! The word was: ${currentWord}`);
+            nextWord();
+        }
+
+        // Next word
+        function nextWord() {
+            const wordObj = getRandomWord();
+            currentWord = wordObj.word;
+            currentHint = wordObj.hint;
+            scrambledWord = scrambleWord(currentWord);
+            
+            while (scrambledWord === currentWord) {
+                scrambledWord = scrambleWord(currentWord);
+            }
+            
+            answerInput.value = '';
+            hintDisplay.textContent = '';
+            gameActive = true;
+            
+            updateDisplay();
+            startTimer();
+            answerInput.focus();
+        }
+
+        // Toggle sound
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            soundButton.innerHTML = soundEnabled ? 
+                '<i class="fas fa-volume-up"></i>' : 
+                '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // Save scores
+        function saveScores() {
+            localStorage.setItem('wordScrambleScore', scores.current);
+            localStorage.setItem('wordScrambleStreak', scores.streak);
+            localStorage.setItem('wordScrambleBest', scores.best);
+        }
+
+        // Show achievement notification
+        function showAchievement(message) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement';
+            achievement.textContent = message;
+            document.body.appendChild(achievement);
+            
+            setTimeout(() => achievement.classList.add('show'), 100);
+            setTimeout(() => {
+                achievement.classList.remove('show');
+                setTimeout(() => achievement.remove(), 300);
+            }, 3000);
+        }
+
+        // Event Listeners
+        checkButton.addEventListener('click', checkAnswer);
+        hintButton.addEventListener('click', showHint);
+        skipButton.addEventListener('click', skipWord);
+        soundButton.addEventListener('click', toggleSound);
+        document.addEventListener('click', initializeSounds, { once: true });
+
+        answerInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
-                checkGuess();
+                checkAnswer();
             }
         });
 
-        generateWord();
+        // Initialize the game
+        updateDisplay();
+
+        // Show welcome message
+        setTimeout(() => {
+            showAchievement('Welcome to Word Scramble! 🎮');
+        }, 500);
+
+        // Start first word
+        nextWord();
     </script>
 </body>
 </html>

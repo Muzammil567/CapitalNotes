@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How We Designed Our 12 Games - The Money Focus Games Blog</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google AdSense Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5437561890480547"
+     crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --color-bg: #1e1b4b;
+            --color-text: #ffffff;
+            --color-text-muted: #a5b4fc;
+            --color-primary: #ec4899;
+            --color-secondary: #8b5cf6;
+            --color-accent: #06b6d4;
+            --color-card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            background: var(--color-card-bg);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: var(--color-primary);
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .blog-post {
+            background: var(--color-card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .blog-post-meta {
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .blog-post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-content {
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .blog-content p {
+            margin-bottom: 25px;
+        }
+
+        .blog-content h2 {
+            color: var(--color-accent);
+            margin: 40px 0 20px;
+            font-size: 1.8rem;
+        }
+
+        .share-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .share-section h3 {
+            color: var(--color-accent);
+            margin-bottom: 20px;
+        }
+
+        .share-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .share-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .share-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .navigation-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--color-primary);
+            color: var(--color-text);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 20px;
+            }
+
+            .blog-post h1 {
+                font-size: 2rem;
+            }
+
+            .blog-post-meta {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <nav class="nav-bar">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+        </nav>
+
+        <article class="blog-post">
+            <h1>How We Designed Our 12 Games at Capital Notes</h1>
+            <div class="blog-post-meta">
+                <span><i class="fas fa-calendar"></i> March 15, 2024</span>
+                <span><i class="fas fa-user"></i> Alex Chen</span>
+                <span><i class="fas fa-comments"></i> 24 Comments</span>
+                <span><i class="fas fa-clock"></i> 8 min read</span>
+            </div>
+
+            <div class="blog-content">
+                <p>When I first started building games for Capital Notes, I had this wild idea: what if we could make browser games that were not just fun, but also helped people take mental breaks during their busy days? The journey began with a simple Tic-Tac-Toe game, but it quickly evolved into something much bigger.</p>
+
+                <p>Looking back at our early prototypes is both hilarious and heartwarming. Our first version of Snake was so basic that the snake looked more like a chain of morse code dots! But there was something charming about its simplicity that players loved. We kept that minimalist spirit while gradually adding more polish and features.</p>
+
+                <h2>The Birth of Our Game Collection</h2>
+                <p>Each game in our collection has its own unique development story. Take Memory Match, for instance. We originally designed it as a tool to help students study for exams. But during testing, we discovered that people were using it more for fun than studying. That's when we pivoted and transformed it into the colorful, engaging game it is today.</p>
+
+                <p>The Whack-a-Mole game came from a completely different place. During a particularly stressful week of debugging, one of our team members joked about wanting to whack bugs with a hammer. That conversation sparked the idea for a stress-relief game that would be both satisfying and entertaining.</p>
+
+                <h2>Learning from Our Players</h2>
+                <p>One of the most valuable lessons we learned was the importance of player feedback. When we launched Simon Says, players immediately asked for a way to practice shorter sequences before tackling longer ones. This led us to implement the progressive difficulty system that's now a standard feature across many of our games.</p>
+
+                <p>The Math Quiz game was particularly challenging to balance. We needed to make it educational without feeling like homework. The breakthrough came when a young player suggested adding "power-ups" for correct answer streaks. Suddenly, learning multiplication tables became an exciting race against time!</p>
+
+                <h2>Technical Challenges and Solutions</h2>
+                <p>Building browser games comes with unique technical challenges. We had to ensure our games would run smoothly on everything from high-end gaming PCs to budget smartphones. This led to some creative optimization techniques, like our dynamic resource loading system that adjusts game quality based on the device's capabilities.</p>
+
+                <p>Cross-browser compatibility was another hurdle. Word Scramble initially had issues with different browsers handling our drag-and-drop system differently. We solved this by developing a custom touch and mouse input handler that works consistently across all platforms.</p>
+
+                <h2>The Future of Our Games</h2>
+                <p>As we look to the future, we're excited about the possibilities. We're exploring new technologies like WebGL for more visually impressive games while maintaining our commitment to accessibility. We're also working on a system that will allow players to create and share their own custom levels.</p>
+
+                <p>But no matter how much we grow or what new features we add, we'll always stay true to our core mission: creating games that make people's days a little brighter, one play session at a time.</p>
+
+                <div class="share-section">
+                    <h3>Share this story</h3>
+                    <div class="share-links">
+                        <a href="#"><i class="fab fa-twitter"></i> Share on Twitter</a>
+                        <a href="#"><i class="fab fa-facebook"></i> Share on Facebook</a>
+                        <a href="#"><i class="fab fa-linkedin"></i> Share on LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="navigation-links">
+                    <a href="blog.html" class="nav-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                    <a href="blog-post-2.html" class="nav-link">Next Post <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Puzzle Slide - The Money Focus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #1a1c2c;
+            --color-grid: #2a2b3d;
+            --color-primary: #4ade80;
+            --color-secondary: #f472b6;
+            --color-power: #7c3aed;
+            --color-text: #ffffff;
+            --color-score: #2dd4bf;
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            color: var(--color-text);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 10px 0;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 100px;
+            padding: 5px;
+        }
+
+        .info-label {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--color-secondary);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+        }
+
+        #puzzle-board {
+            width: min(85vw, 85vh, 400px);
+            height: min(85vw, 85vh, 400px);
+            background: var(--color-grid);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            padding: 4px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .puzzle-tile {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: bold;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            user-select: none;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .puzzle-tile:hover {
+            transform: scale(0.98);
+        }
+
+        .puzzle-tile.empty {
+            background: none;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        button {
+            padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .achievement {
+            position: fixed;
+            bottom: calc(20px + var(--safe-area-inset-bottom));
+            right: 20px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .game-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-instructions h2 {
+            color: var(--color-secondary);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .game-instructions p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+            margin: 12px 0;
+            color: var(--color-text);
+            opacity: 0.9;
+        }
+
+        .game-instructions ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .game-instructions li {
+            margin: 8px 0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: var(--color-text);
+            opacity: 0.9;
+        }
+
+        @media (max-width: 700px) {
+            .game-container {
+                padding: 10px;
+            }
+
+            .game-instructions {
+                padding: 15px;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .game-info {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Puzzle Slide</h1>
+
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Moves</span>
+                <span class="info-value" id="moves">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Best</span>
+                <span class="info-value" id="bestMoves">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Time</span>
+                <span class="info-value" id="time">00:00</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Best Time</span>
+                <span class="info-value" id="bestTime">--:--</span>
+            </div>
+        </div>
+
+        <div id="puzzle-board"></div>
+
+        <div class="controls">
+            <button id="new-game">New Game</button>
+            <button id="toggle-sound"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <div class="game-instructions">
+            <h2>Welcome to Puzzle Slide!</h2>
+            <p>Slide the numbered tiles to arrange them in order. Can you solve the puzzle in the fewest moves?</p>
+            
+            <h2>Game Features:</h2>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🧩 Classic sliding puzzle</li>
+                <li>⏱️ Time tracking</li>
+                <li>🏆 Best moves & time records</li>
+                <li>🎮 Touch & mouse controls</li>
+            </ul>
+            
+            <p>🎮 How to Play:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🔄 Click or tap tiles next to the empty space to slide them</li>
+                <li>📊 Arrange numbers from 1-8 in order</li>
+                <li>⭐ Complete the puzzle with the empty space in the bottom right</li>
+                <li>🎯 Try to use as few moves as possible!</li>
+            </ul>
+
+            <p>💫 Tips:</p>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li>🤔 Plan your moves ahead</li>
+                <li>🔍 Focus on one row or column at a time</li>
+                <li>⚡ Practice to improve your solving speed</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Game configuration
+        const config = {
+            boardSize: 3,
+            shuffleMoves: 100,
+            animationSpeed: 100
+        };
+
+        // Game state
+        let tiles = [];
+        let emptyTile = { x: config.boardSize - 1, y: config.boardSize - 1 };
+        let moves = 0;
+        let bestMoves = localStorage.getItem('puzzleBestMoves') || '-';
+        let gameStarted = false;
+        let startTime = 0;
+        let timerInterval;
+        let soundEnabled = true;
+
+        // Sound effects
+        const sounds = {
+            move: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbUxJfmAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='),
+            complete: new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAYbpK9GGAAAA//tQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UMQBg8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxCIDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==')
+        };
+
+        // Game elements
+        const puzzleBoard = document.getElementById('puzzle-board');
+        const movesDisplay = document.getElementById('moves');
+        const bestMovesDisplay = document.getElementById('bestMoves');
+        const timeDisplay = document.getElementById('time');
+        const bestTimeDisplay = document.getElementById('bestTime');
+        const newGameButton = document.getElementById('new-game');
+        const soundButton = document.getElementById('toggle-sound');
+
+        // Initialize sounds
+        function initializeSounds() {
+            Object.values(sounds).forEach(sound => {
+                sound.volume = 0.3;
+                sound.load();
+            });
+        }
+
+        // Play sound effect
+        function playSound(sound) {
+            if (soundEnabled && sounds[sound]) {
+                const audioClone = sounds[sound].cloneNode();
+                audioClone.volume = 0.3;
+                audioClone.play().catch(error => console.log('Sound play failed:', error));
+            }
+        }
+
+        // Create the puzzle board
+        function createBoard() {
+            puzzleBoard.innerHTML = '';
+            tiles = [];
+            
+            for (let y = 0; y < config.boardSize; y++) {
+                for (let x = 0; x < config.boardSize; x++) {
+                    const value = y * config.boardSize + x + 1;
+                    if (value < config.boardSize * config.boardSize) {
+                        const tile = document.createElement('div');
+                        tile.className = 'puzzle-tile';
+                        tile.textContent = value;
+                        tile.addEventListener('click', () => moveTile(x, y));
+                        puzzleBoard.appendChild(tile);
+                        tiles.push({ x, y, element: tile, value });
+                    } else {
+                        const empty = document.createElement('div');
+                        empty.className = 'puzzle-tile empty';
+                        puzzleBoard.appendChild(empty);
+                        emptyTile = { x, y };
+                    }
+                }
+            }
+        }
+
+        // Shuffle the puzzle
+        function shufflePuzzle() {
+            for (let i = 0; i < config.shuffleMoves; i++) {
+                const possibleMoves = getPossibleMoves();
+                const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                swapTiles(randomMove.x, randomMove.y);
+            }
+            moves = 0;
+            updateDisplays();
+        }
+
+        // Get possible moves
+        function getPossibleMoves() {
+            const possibleMoves = [];
+            
+            if (emptyTile.x > 0) possibleMoves.push({ x: emptyTile.x - 1, y: emptyTile.y });
+            if (emptyTile.x < config.boardSize - 1) possibleMoves.push({ x: emptyTile.x + 1, y: emptyTile.y });
+            if (emptyTile.y > 0) possibleMoves.push({ x: emptyTile.x, y: emptyTile.y - 1 });
+            if (emptyTile.y < config.boardSize - 1) possibleMoves.push({ x: emptyTile.x, y: emptyTile.y + 1 });
+            
+            return possibleMoves;
+        }
+
+        // Move a tile
+        function moveTile(x, y) {
+            if (!gameStarted) return;
+            
+            if (isAdjacent(x, y, emptyTile.x, emptyTile.y)) {
+                swapTiles(x, y);
+                playSound('move');
+                moves++;
+                updateDisplays();
+                
+                if (isPuzzleSolved()) {
+                    gameComplete();
+                }
+            }
+        }
+
+        // Check if two positions are adjacent
+        function isAdjacent(x1, y1, x2, y2) {
+            return (Math.abs(x1 - x2) === 1 && y1 === y2) || 
+                   (Math.abs(y1 - y2) === 1 && x1 === x2);
+        }
+
+        // Swap tiles
+        function swapTiles(x, y) {
+            const tile = tiles.find(t => t.x === x && t.y === y);
+            if (tile) {
+                const tempX = tile.x;
+                const tempY = tile.y;
+                tile.x = emptyTile.x;
+                tile.y = emptyTile.y;
+                emptyTile.x = tempX;
+                emptyTile.y = tempY;
+                updateTilePositions();
+            }
+        }
+
+        // Update tile positions
+        function updateTilePositions() {
+            tiles.forEach(tile => {
+                tile.element.style.gridColumn = tile.x + 1;
+                tile.element.style.gridRow = tile.y + 1;
+            });
+        }
+
+        // Check if puzzle is solved
+        function isPuzzleSolved() {
+            return tiles.every(tile => {
+                const correctPosition = tile.value - 1;
+                const correctX = correctPosition % config.boardSize;
+                const correctY = Math.floor(correctPosition / config.boardSize);
+                return tile.x === correctX && tile.y === correctY;
+            });
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Update displays
+        function updateDisplays() {
+            movesDisplay.textContent = moves;
+            bestMovesDisplay.textContent = bestMoves;
+            
+            if (gameStarted) {
+                const currentTime = Math.floor((Date.now() - startTime) / 1000);
+                timeDisplay.textContent = formatTime(currentTime);
+            }
+        }
+
+        // Game complete
+        function gameComplete() {
+            gameStarted = false;
+            clearInterval(timerInterval);
+            playSound('complete');
+            
+            const currentTime = Math.floor((Date.now() - startTime) / 1000);
+            const bestTime = localStorage.getItem('puzzleBestTime');
+            
+            if (!bestTime || currentTime < parseInt(bestTime)) {
+                localStorage.setItem('puzzleBestTime', currentTime);
+                bestTimeDisplay.textContent = formatTime(currentTime);
+                showAchievement('New Best Time! 🏆');
+            }
+            
+            if (bestMoves === '-' || moves < parseInt(bestMoves)) {
+                bestMoves = moves;
+                localStorage.setItem('puzzleBestMoves', moves);
+                showAchievement('New Best Moves! 🌟');
+            }
+            
+            showAchievement('Puzzle Solved! 🎉');
+        }
+
+        // Start new game
+        function startGame() {
+            createBoard();
+            shufflePuzzle();
+            gameStarted = true;
+            startTime = Date.now();
+            
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(updateDisplays, 1000);
+            
+            showAchievement('Game Started! 🎮');
+        }
+
+        // Toggle sound
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            soundButton.innerHTML = soundEnabled ? 
+                '<i class="fas fa-volume-up"></i>' : 
+                '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // Show achievement notification
+        function showAchievement(message) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement';
+            achievement.textContent = message;
+            document.body.appendChild(achievement);
+            
+            setTimeout(() => achievement.classList.add('show'), 100);
+            setTimeout(() => {
+                achievement.classList.remove('show');
+                setTimeout(() => achievement.remove(), 300);
+            }, 3000);
+        }
+
+        // Event Listeners
+        newGameButton.addEventListener('click', startGame);
+        soundButton.addEventListener('click', toggleSound);
+        document.addEventListener('click', initializeSounds, { once: true });
+
+        // Initialize best time display
+        const savedBestTime = localStorage.getItem('puzzleBestTime');
+        if (savedBestTime) {
+            bestTimeDisplay.textContent = formatTime(parseInt(savedBestTime));
+        }
+
+        // Show welcome message
+        setTimeout(() => {
+            showAchievement('Welcome to Puzzle Slide! 🧩');
+        }, 500);
+    </script>
+</body>
+</html> 
